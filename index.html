@@ -58,6 +58,7 @@
       border-radius: 12px;
       max-width: 400px;
       text-align: center;
+      position: relative;
     }
     .modal-content button {
       margin-top: 1rem;
@@ -72,8 +73,8 @@
     /* close button */
     .close {
       position: absolute;
-      top: 41%;
-      right: 36.7%;
+      top: 2%;
+      right: 2%;
       font-size: 2rem;
       color: black;
       cursor: pointer;
@@ -98,7 +99,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="japan_map.jpg" alt="Mappa Giappone" class="map">
+    <img src="japan_map_custom.jpg" alt="Mappa Giappone" class="map">
 
     <!-- Posizionamento esperienze -->
     <div class="city" style="top: 64%; left: 65%;" onclick="openModal('Tokyo')"></div>
@@ -107,39 +108,53 @@
   </div>
 
   <div class="modal" id="modal">
-    <div class="close" onclick="closeModal()">&times;</div>
     <div class="modal-content" id="modal-content">
+      
       <!-- Contenuto dinamico -->
     </div>
   </div>
 
   <!-- array delle esperienze -->
   <script>
+
+    document.getElementById('modal').addEventListener('click', function(event) {
+      if (event.target === this) {
+        closeModal();
+      }
+    });
+
+    const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%"
+
     const experiences = {
       "Tokyo": {
         title: "Serata sushi a Tokyo",
         description: "Regala una cena tradizionale in un sushi bar storico di Shinjuku!",
-        button: "Regala questa esperienza"
+        amount: "50"
       },
       "Kyoto": {
         title: "Cerimonia del tè a Kyoto",
         description: "Un momento zen in un'antica casa da tè con vista sul giardino giapponese.",
-        button: "Offri questa esperienza"
+        amount: "100"
       },
       "Hiroshima": {
         title: "Museo della Pace a Hiroshima",
         description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        button: "Contribuisci a questa visita"
+        amount: "200"
       }
     };
 
     function openModal(city) {
       const data = experiences[city];
       const content = document.getElementById('modal-content');
+      const url = staticLink.replace("%amount%", data.amount).replace("%title%", data.title);
+
       content.innerHTML = `
+        <div class="close" onclick="closeModal()">&times;</div>
         <h2>${data.title}</h2>
         <p>${data.description}</p>
-        <button>${data.button}</button>
+        <a href="${url}" target="_blank">
+          <button>Regala questa esperienza per ${data.amount} €</button>
+        </a>
       `;
       document.getElementById('modal').style.display = 'flex';
     }
@@ -147,6 +162,7 @@
     function closeModal() {
       document.getElementById('modal').style.display = 'none';
     }
+
   </script>
 </body>
 </html>
