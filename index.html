@@ -335,17 +335,17 @@
     <!-- Città sulla mappa -->
     <div class="map-city" style="top: 64%; left: 65%;" data-city="Tokyo">
       <div class="map-city__label">
-        <span data-icon="🏖️" class="map-city__sign">Tokyo</span>
+        <span data-icon="🏖️" class="map-city__sign"></span>
       </div>
     </div>
     <div class="map-city" style="top: 67%; left: 42%;" data-city="Kyoto">
       <div class="map-city__label">
-        <span data-icon="🏖️" class="map-city__sign">Kyoto</span>
+        <span data-icon="🏖️" class="map-city__sign"></span>
       </div>
     </div>
     <div class="map-city" style="top: 71%; left: 24%;" data-city="Hiroshima">
       <div class="map-city__label">
-        <span data-icon="🏖️" class="map-city__sign">Hiroshima</span>
+        <span data-icon="🏖️" class="map-city__sign"></span>
       </div>
     </div>
   </div>
@@ -447,44 +447,54 @@
     //#region scrolling javascript
     const slider = document.querySelector('.cards-container');
 
-let isDragging = false;
-let startX = 0;
-let startScrollLeft = 0;
-let currentX = 0;
-let rafId = null;
+    let isDragging = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let currentX = 0;
+    let rafId = null;
 
-function updateScroll() {
-  const deltaX = currentX - startX;
-  slider.scrollLeft = startScrollLeft - deltaX;
-  rafId = requestAnimationFrame(updateScroll);
-}
+    function updateScroll() {
+      const deltaX = currentX - startX;
+      slider.scrollLeft = startScrollLeft - deltaX;
+      rafId = requestAnimationFrame(updateScroll);
+    }
 
-slider.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  slider.classList.add('active');
-  startX = e.clientX;
-  startScrollLeft = slider.scrollLeft;
-  currentX = e.clientX;
-  rafId = requestAnimationFrame(updateScroll);
-});
+    slider.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      slider.classList.add('active');
+      startX = e.clientX;
+      startScrollLeft = slider.scrollLeft;
+      currentX = e.clientX;
+      rafId = requestAnimationFrame(updateScroll);
+    });
 
-slider.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
-  currentX = e.clientX;
-});
+    slider.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX;
+    });
 
-slider.addEventListener('mouseup', () => {
-  isDragging = false;
-  slider.classList.remove('active');
-  cancelAnimationFrame(rafId);
-});
+    slider.addEventListener('mouseup', () => {
+      isDragging = false;
+      slider.classList.remove('active');
+      cancelAnimationFrame(rafId);
+    });
 
-slider.addEventListener('mouseleave', () => {
-  isDragging = false;
-  slider.classList.remove('active');
-  cancelAnimationFrame(rafId);
-});
+    slider.addEventListener('mouseleave', () => {
+      isDragging = false;
+      slider.classList.remove('active');
+      cancelAnimationFrame(rafId);
+    });
     //#endregion scrolling javascript
+
+
+    document.querySelectorAll('.map-city').forEach(cityEl => {
+    const cityName = cityEl.dataset.city;
+    const labelSpan = cityEl.querySelector('.map-city__sign');
+
+    if (labelSpan) {
+      labelSpan.textContent = cityName;
+    }
+  });
     
   </script>
 </body>
