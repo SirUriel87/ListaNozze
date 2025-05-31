@@ -47,22 +47,30 @@
     }
 
     .cards-container {
-  display: flex;
-  overflow-x: auto;
-  gap: 1.5rem;
-  padding: 1rem;
-  margin-top: 2rem;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
+      display: flex;
+      overflow-x: auto;
+      gap: 1.5rem;
+      padding: 5rem;
+      margin-top: 2rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      user-select: none;
+      scroll-behavior: smooth;
+      will-change: scroll-position;
+    }
 
-.cards-container::-webkit-scrollbar {
-  height: 8px;
-}
-.cards-container::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
+    .cards-container::-webkit-scrollbar {
+      display: none;
+    }
+    .cards-container::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+
+    .cards-container.active {
+      cursor: grabbing;
+    }
 
     .card {
       width: 190px;
@@ -78,7 +86,9 @@
       flex-direction: column;
       justify-content: space-between;
       scroll-snap-align: start;
-  flex: 0 0 auto;
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      flex: 0 0 auto;
     }
 
     .card-details {
@@ -235,6 +245,48 @@
 
       container.appendChild(card);
     }
+
+    //#region scrolling javascript
+    const slider = document.querySelector('.cards-container');
+
+let isDragging = false;
+let startX = 0;
+let startScrollLeft = 0;
+let currentX = 0;
+let rafId = null;
+
+function updateScroll() {
+  const deltaX = currentX - startX;
+  slider.scrollLeft = startScrollLeft - deltaX;
+  rafId = requestAnimationFrame(updateScroll);
+}
+
+slider.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  slider.classList.add('active');
+  startX = e.clientX;
+  startScrollLeft = slider.scrollLeft;
+  currentX = e.clientX;
+  rafId = requestAnimationFrame(updateScroll);
+});
+
+slider.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  currentX = e.clientX;
+});
+
+slider.addEventListener('mouseup', () => {
+  isDragging = false;
+  slider.classList.remove('active');
+  cancelAnimationFrame(rafId);
+});
+
+slider.addEventListener('mouseleave', () => {
+  isDragging = false;
+  slider.classList.remove('active');
+  cancelAnimationFrame(rafId);
+});
+    //#endregion scrolling javascript
     
   </script>
 </body>
