@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lista nozze – Esperienze in Giappone</title>
   <style>
     :root {
       --pointInitSize: 30px;
-      --highlightColor: #008bf8;
+      --highlightColor: #7a7a7a;
+      --highlightActiveColor: #008bf8;
     }
 
     body {
@@ -23,7 +25,7 @@
       max-width: 900px;
       margin: 0 auto;
       --city-radius: 2rem;
-      --city-sign-color-back: var(--highlightColor);
+      --city-sign-color-back: var(--highlightActiveColor);
       --city-sign-color-font: #fff;
       --city-pin-size-font: 2rem;
     }
@@ -60,7 +62,7 @@
     .map-city::after {
       clip-path: inset(-0.5em 0 0 0);
       content: "📍";
-      text-shadow: 1px 1px 2px #0044ff;
+      text-shadow: 1px 1px 2px var(--highlightColor);
       left: calc(-50% + var(--city-radius));
       position: absolute;
       top: calc(-1em + var(--city-radius));
@@ -296,12 +298,14 @@
     .card-button {
       transform: translate(-50%, 50%);
       width: 60%;
+      height: 35px;
       border-radius: 1rem;
       border: none;
       background-color: var(--highlightColor);
       color: #fff;
-      font-size: 1rem;
+      font-size: 1.2rem;
       padding: 0.5rem 1rem;
+      margin: 8px;
       position: absolute;
       left: 50%;
       bottom: 0;
@@ -309,12 +313,42 @@
       transition: 0.3s ease-out;
       text-decoration: none;
       text-align: center;
+      align-items: center;
+      display: flex;
+      justify-content: center;
     }
 
     
     .card:hover {
-      transform: translate(-0%, -20%);
+      border-color: var(--highlightActiveColor);
       transition: 0.3s ease-out;
+    }
+
+    .card:hover .card-button {
+      background-color: var(--highlightActiveColor);
+      
+    }
+
+   .card-button::after {
+      content: "";
+      position: absolute;
+      right: -30px; /* Inizia fuori dal bottone */
+      top: 43%;
+      transform: translateY(-50%);
+      transition: all 0.3s ease-out;
+      opacity: 0;
+      top: calc(50% + 1px); /* Micro-regolazione verticale */
+    }
+
+    .card:hover .card-button::after {
+      content: "\f07a";
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 23px; /* Dimensione fissa in pixel */
+       /* width: 20px; Larghezza fissa per allineamento migliore */
+      text-align: center; /* Centra l'icona */
+      right: 18px; /* Posizione finale dentro il bottone */
+      opacity: 1;
     }
 
 
