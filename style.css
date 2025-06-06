@@ -1,0 +1,495 @@
+:root {
+    --pointInitSize: 30px;
+    --highlightColor: #7a7a7a;
+    --highlightActiveColor: #008bf8;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #fdf7f2;
+    padding: 1rem;
+}
+
+
+.container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    --city-radius: 2rem;
+    --city-sign-color-back: var(--highlightActiveColor);
+    --city-sign-color-font: #fff;
+    --city-pin-size-font: 2rem;
+    width: calc(100% - 300px);
+    /* Lascia spazio per la sidebar */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        margin-top: 30px;
+        transform: none;
+    }
+
+    .container {
+        width: 100%;
+    }
+}
+
+.map {
+    width: 100%;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        margin-top: 2rem;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .container {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+}
+
+
+/* #region Cart Sidebar */
+
+.sidebar {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    /* Fissa la distanza dal top */
+    width: 250px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    max-height: calc(100vh - 40px);
+    /* Altezza massima basata sulla viewport */
+    overflow-y: auto;
+    /* Abilita lo scroll se il contenuto è troppo lungo */
+
+    /* Rimuovi la trasformazione che centrava verticalmente */
+    transform: none !important;
+}
+
+.selected-activities {
+    margin: 15px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.delete-btn {
+    background: #ffebee;
+    border: none;
+    border-radius: 50%;
+    color: #ff4444;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-left: 10px;
+    transition: all 0.2s;
+}
+
+.delete-btn:hover {
+    background: #ffcdd2;
+    color: #d32f2f;
+    transform: rotate(90deg);
+}
+
+.activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.activity-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--highlightActiveColor);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.checkout-btn:hover {
+    background: #00d45a;
+    transform: translateY(-2px);
+}
+
+/* #endregion Cart Sidebar */
+
+/* #region Map - Cities */
+.map-cities {
+    width: 100%;
+}
+
+.map-city {
+    border-radius: var(--city-radius);
+    left: calc(var(--x) * 1% - var(--city-radius));
+    padding: var(--city-radius);
+    position: absolute;
+    top: calc(var(--y) * 1% - var(--city-radius));
+}
+
+.map-city::after,
+.map-city::before {
+    font-size: var(--city-pin-size-font);
+}
+
+.map-city::before {
+    content: "•";
+    left: calc(-50% + var(--city-radius));
+    position: absolute;
+    top: calc(-0.36em + var(--city-radius));
+    text-align: center;
+    text-shadow: 0 1px 1px #000;
+    width: 100%;
+}
+
+.map-city::after {
+    clip-path: inset(-0.5em 0 0 0);
+    content: "📍";
+    text-shadow: 1px 1px 2px var(--highlightColor);
+    left: calc(-50% + var(--city-radius));
+    position: absolute;
+    top: calc(-1em + var(--city-radius));
+    text-align: center;
+    transition: all 300ms ease-out;
+    width: 100%;
+    z-index: var(--y);
+}
+
+/* #endregion Map - Cities */
+
+
+/* #region Map - Sign */
+.map-city__label {
+    display: none;
+    left: calc(-5em + 50%);
+    position: absolute;
+    text-align: center;
+    width: 10em;
+    z-index: 999;
+}
+
+.map-city__sign {
+    align-items: center;
+    background-color: var(--city-sign-color-back);
+    border-radius: 0.2rem;
+    border: 0.15em solid var(--city-sign-color-font);
+    box-shadow: 0 0 3px #000;
+    color: var(--city-sign-color-font);
+    column-gap: 0.3em;
+    display: flex;
+    font-weight: 700;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0.4em 0.6em 0.4em 0.3em;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    width: max-content;
+}
+
+.map-city__sign::before {
+    content: attr(data-icon);
+}
+
+/* #endregion Map - Sign */
+
+
+/* #region tracking */
+
+/************/
+/* Tracking */
+/************/
+
+/* Map - Cities */
+.map-city:hover::after {
+    clip-path: inset(-0.5em 0 0.5em 0);
+    transform: translateY(0.5em);
+}
+
+/* Map - Sign */
+.map-city:hover .map-city__label {
+    animation: fadein 300ms forwards ease-out;
+    display: block;
+}
+
+.map-city:hover .map-city__sign.anim::before {
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+.map-city:hover .map-city__sign.anim-grow::before {
+    animation-name: grow;
+    animation-timing-function: ease-in;
+}
+
+.map-city:hover .map-city__sign.anim-slidein::before {
+    animation-name: slidein;
+    animation-timing-function: ease-out;
+}
+
+.map-city.hovered::after {
+    clip-path: inset(-0.5em 0 0.5em 0);
+    transform: translateY(0.5em);
+}
+
+.map-city.hovered .map-city__label {
+    display: block;
+    animation: fadein 300ms forwards ease-out;
+}
+
+/* #endregion tracking */
+
+/* #region animations */
+/**************/
+/* Animations */
+/**************/
+
+/* Fade in from top */
+@keyframes fadein {
+    0% {
+        opacity: 0;
+        top: calc(var(--city-radius));
+    }
+
+    100% {
+        opacity: 1;
+        top: calc(var(--city-radius) + var(--city-pin-size-font) / 2);
+    }
+}
+
+/* Grow from the ground */
+@keyframes grow {
+    0% {
+        transform: translate(0, 200%);
+    }
+
+    10% {
+        transform: translate(5%, 180%);
+    }
+
+    20% {
+        transform: translate(-10%, 160%);
+    }
+
+    30% {
+        transform: translate(15%, 140%);
+    }
+
+    40% {
+        transform: translate(-5%, 120%);
+    }
+
+    50% {
+        transform: translate(10%, 100%);
+    }
+
+    60% {
+        transform: translate(-15%, 80%);
+    }
+
+    70% {
+        transform: translate(5%, 60%);
+    }
+
+    80% {
+        transform: translate(0, 40%);
+    }
+
+    90% {
+        transform: translate(0, 20%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* Slide in from left */
+@keyframes slidein {
+    0% {
+        transform: translateX(-200%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* #endregion animations */
+
+.cards-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1.5rem;
+    padding: 5rem;
+    margin-top: 2rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    user-select: none;
+    scroll-behavior: smooth;
+    will-change: scroll-position;
+}
+
+.cards-container::-webkit-scrollbar {
+    display: none;
+}
+
+.cards-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.cards-container.active {
+    cursor: grabbing;
+}
+
+/* #region CARD */
+
+.card {
+    width: 190px;
+    height: 254px;
+    border-radius: 20px;
+    background: #f5f5f5;
+    position: relative;
+    padding: 1.8rem;
+    border: 2px solid #c3c6ce;
+    transition: 0.5s ease-out;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    border-color: var(--highlightColor);
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card-details {
+    color: black;
+    gap: 0.5em;
+}
+
+.text-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.text-body {
+    color: rgb(134, 134, 134);
+    font-size: 0.9em;
+}
+
+.card-button {
+    transform: translate(-50%, 50%);
+    width: 60%;
+    height: 35px;
+    border-radius: 1rem;
+    border: none;
+    background-color: var(--highlightColor);
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    margin: 8px;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    opacity: 1;
+    transition: 0.3s ease-out;
+    text-decoration: none;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+.card-button.selected {
+    background-color: var(--highlightActiveColor);
+}
+
+.card-button.selected::after {
+    content: none;
+    /* Rimuove l'icona del carrello se presente */
+}
+
+
+.card:hover {
+    border-color: var(--highlightActiveColor);
+    transition: 0.3s ease-out;
+}
+
+.card:hover .card-button {
+    background-color: var(--highlightActiveColor);
+
+}
+
+.card-button::after {
+    content: "";
+    position: absolute;
+    right: -30px;
+    /* Inizia fuori dal bottone */
+    top: 43%;
+    transform: translateY(-50%);
+    transition: all 0.3s ease-out;
+    opacity: 0;
+    top: calc(50% + 1px);
+    /* Micro-regolazione verticale */
+}
+
+.card:hover .card-button::after {
+    content: "\f07a";
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 23px;
+    /* Dimensione fissa in pixel */
+    /* width: 20px; Larghezza fissa per allineamento migliore */
+    text-align: center;
+    /* Centra l'icona */
+    right: 18px;
+    /* Posizione finale dentro il bottone */
+    opacity: 1;
+}
+
+
+/* #endregion CARD */
+
+@media (max-width: 600px) {
+    .card {
+        width: 90%;
+    }
+}
