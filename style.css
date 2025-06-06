@@ -321,7 +321,9 @@ body {
 
 .cards-container {
     display: flex;
+
     overflow-x: auto;
+    max-height: 60%;
     gap: 1.5rem;
     padding: 5rem;
     margin-top: 2rem;
@@ -464,7 +466,7 @@ body {
 /* Bottone per aprire la sidebar */
 .toggle-cart-btn {
     position: fixed;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
     background-color: #008bf8;
     color: white;
@@ -507,5 +509,27 @@ body {
         transform: translateX(0);
     }
 
-    
+    .card-button {
+                width: 30%;
+        height: 1.8rem;
+        left: unset;
+        bottom: 0%;
+        position: absolute;
+        transform: unset;
+        right: 0%;
+    }
+
+    .card {
+                width: 100%;
+        height: 20%;
+        padding: 0.7rem;
+        position: relative;
+        padding-bottom: 3.5rem;
+    }
+
+    .cards-container {
+        flex-direction: column;
+            gap: 0.7rem;
+        padding: 0 1rem;
+    }
 }

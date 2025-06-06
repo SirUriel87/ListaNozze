@@ -4,58 +4,69 @@ const experiences = {
     "Tokyo": {
         title: "Serata sushi a Tokyo",
         description: "Regala una cena tradizionale in un sushi bar storico di Shinjuku!",
-        amount: "50"
+        amount: "50",
+        city: "Tokyo"
     },
     "Kyoto": {
         title: "Cerimonia del tè a Kyoto",
         description: "Un momento zen in un'antica casa da tè con vista sul giardino giapponese.",
-        amount: "100"
+        amount: "100",
+        city: "Kyoto"
     },
     "Hiroshima": {
         title: "Museo della Pace a Hiroshima",
         description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200"
+        amount: "200",
+        city: "Hiroshima"
     },
-    // "1": {
-    //   title: "Museo della Pace a Hiroshima",
-    //   description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //   amount: "200"
-    // },
-    // "2": {
-    //   title: "Museo della Pace a Hiroshima",
-    //   description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //   amount: "200"
-    // },
-    // "3": {
-    //   title: "Museo della Pace a Hiroshima",
-    //   description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //   amount: "200"
-    // },
-    // "4": {
-    //   title: "Museo della Pace a Hiroshima",
-    //   description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //   amount: "200"
-    // },
-    // "5": {
-    //   title: "Museo della Pace a Hiroshima",
-    //   description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //   amount: "200"
-    // },
-    // "6": {
-    //   title: "Museo della Pace a Hiroshima",
-    //   description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //   amount: "200"
-    // },
-    // "7": {
-    //   title: "Museo della Pace a Hiroshima",
-    //   description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //   amount: "200"
-    // },
-    // "sd": {
-    //   title: "Museo della Pace a Hiroshima",
-    //   description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //   amount: "200"
-    // },
+    "1": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia. bla bla bla bla blala bla bla bla blala bla bla bla blala bla bla bla bla",
+        amount: "200",
+        city: "Hiroshima"
+    },
+    "2": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima"
+    },
+    "3": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima"
+    },
+    "4": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima"
+    },
+    "5": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima"
+    },
+    "6": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima"
+    },
+    "7": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima"
+    },
+    "sd": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima"
+    },
 };
 
 const container = document.getElementById("cards-container");
@@ -123,7 +134,7 @@ for (const city in experiences) {
           <div class="text-title">${data.title}</div>
           <div class="text-body">${data.description}</div>
         </div>
-        <a class="card-button" href="#" data-city="${city}" data-amount="${data.amount}">${data.amount} €</a>
+        <a class="card-button" href="#" data-city="${data.city}" data-amount="${data.amount}">${data.amount} €</a>
       `;
 
     // Aggiungi event listener per il click
@@ -134,21 +145,17 @@ for (const city in experiences) {
 
         // Feedback visivo
         button.classList.toggle('selected');
-        if (button.classList.contains('selected')) {
-            button.innerHTML = `${data.amount} € ✓`;
-        } else {
-            button.innerHTML = `${data.amount} €`;
-        }
+
     });
 
     // Highlight city dot on hover
     card.addEventListener("mouseenter", () => {
-        const mapCity = document.querySelector(`.map-city[data-city="${city}"]`);
+        const mapCity = document.querySelector(`.map-city[data-city="${data.city}"]`);
         if (mapCity) mapCity.classList.add("hovered");
     });
 
     card.addEventListener("mouseleave", () => {
-        const mapCity = document.querySelector(`.map-city[data-city="${city}"]`);
+        const mapCity = document.querySelector(`.map-city[data-city="${data.city}"]`);
         if (mapCity) mapCity.classList.remove("hovered");
     });
 
@@ -261,16 +268,6 @@ const sidebar = document.querySelector(".sidebar");
 
 // Apri/chiudi sidebar su click bottone
 toggleBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("open");
+    sidebar.classList.toggle("open");
 });
 
-
-document.addEventListener("click", (e) => {
-  if (
-    !sidebar.contains(e.target) &&
-    !toggleBtn.contains(e.target) &&
-    sidebar.classList.contains("open")
-  ) {
-    sidebar.classList.remove("open");
-  }
-});
