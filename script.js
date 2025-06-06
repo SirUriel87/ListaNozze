@@ -254,3 +254,23 @@ document.querySelectorAll('.map-city').forEach(cityEl => {
         labelSpan.textContent = cityName;
     }
 });
+
+
+const toggleBtn = document.getElementById("toggle-cart");
+const sidebar = document.querySelector(".sidebar");
+
+// Apri/chiudi sidebar su click bottone
+toggleBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("open");
+});
+
+
+document.addEventListener("click", (e) => {
+  if (
+    !sidebar.contains(e.target) &&
+    !toggleBtn.contains(e.target) &&
+    sidebar.classList.contains("open")
+  ) {
+    sidebar.classList.remove("open");
+  }
+});
