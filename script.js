@@ -5,71 +5,103 @@ const experiences = {
         title: "Serata sushi a Tokyo",
         description: "Regala una cena tradizionale in un sushi bar storico di Shinjuku!",
         amount: "50",
-        city: "Tokyo"
+        city: "Tokyo",
+        position: [35.67911376451128, 139.67184740774755]
     },
     "Kyoto": {
         title: "Cerimonia del tè a Kyoto",
         description: "Un momento zen in un'antica casa da tè con vista sul giardino giapponese.",
         amount: "100",
-        city: "Kyoto"
+        city: "Kyoto",
+        position: [34.86791645980951, 135.81773554778758]
     },
     "Hiroshima": {
         title: "Museo della Pace a Hiroshima",
         description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
         amount: "200",
-        city: "Hiroshima"
+        city: "Hiroshima",
+        position: [34.384768176738234, 132.46044279477556]
     },
-    "1": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia. bla bla bla bla blala bla bla bla blala bla bla bla blala bla bla bla bla",
-        amount: "200",
-        city: "Hiroshima"
-    },
-    "2": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima"
-    },
-    "3": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima"
-    },
-    "4": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima"
-    },
-    "5": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima"
-    },
-    "6": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima"
-    },
-    "7": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima"
-    },
-    "sd": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima"
-    },
+    // "1": {
+    //     title: "Museo della Pace a Hiroshima",
+    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia. bla bla bla bla blala bla bla bla blala bla bla bla blala bla bla bla bla",
+    //     amount: "200",
+    //     city: "Hiroshima"
+    // },
+    // "2": {
+    //     title: "Museo della Pace a Hiroshima",
+    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+    //     amount: "200",
+    //     city: "Hiroshima"
+    // },
+    // "3": {
+    //     title: "Museo della Pace a Hiroshima",
+    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+    //     amount: "200",
+    //     city: "Hiroshima"
+    // },
+    // "4": {
+    //     title: "Museo della Pace a Hiroshima",
+    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+    //     amount: "200",
+    //     city: "Hiroshima"
+    // },
+    // "5": {
+    //     title: "Museo della Pace a Hiroshima",
+    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+    //     amount: "200",
+    //     city: "Hiroshima"
+    // },
+    // "6": {
+    //     title: "Museo della Pace a Hiroshima",
+    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+    //     amount: "200",
+    //     city: "Hiroshima"
+    // },
+    // "7": {
+    //     title: "Museo della Pace a Hiroshima",
+    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+    //     amount: "200",
+    //     city: "Hiroshima"
+    // },
+    // "sd": {
+    //     title: "Museo della Pace a Hiroshima",
+    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+    //     amount: "200",
+    //     city: "Hiroshima"
+    // },
 };
 
+
+
+
+
+
+
+// #region map initialization
+
+var neutralViewPos = [35.21305271629127, 136.41241296367983]
+var neutralViewZoom = 7
+
+var map = L.map('map').setView(neutralViewPos, neutralViewZoom);
+
+// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 19,
+//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// }).addTo(map);
+
+L.tileLayer('https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=c131d2ef446a4a6ebc6006e42787346f', {
+    maxZoom: 19,
+    minZoom: 7,
+	attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
+
+
+// #endregion map initialization
+
 const container = document.getElementById("cards-container");
+
+
 
 
 //#region scrolling javascript
@@ -115,7 +147,6 @@ slider.addEventListener('mouseleave', () => {
 //#endregion scrolling javascript
 
 
-/* #region Cart Sidebar Javascript */
 
 const selectedActivities = [];
 const totalAmountElement = document.getElementById('total-amount');
@@ -148,19 +179,22 @@ for (const city in experiences) {
 
     });
 
-    // Highlight city dot on hover
     card.addEventListener("mouseenter", () => {
-        const mapCity = document.querySelector(`.map-city[data-city="${data.city}"]`);
-        if (mapCity) mapCity.classList.add("hovered");
+        data.marker.openPopup();
+        map.setView(data.position, 9, {animate: true});
     });
 
+    
     card.addEventListener("mouseleave", () => {
-        const mapCity = document.querySelector(`.map-city[data-city="${data.city}"]`);
-        if (mapCity) mapCity.classList.remove("hovered");
+        data.marker.closePopup();
     });
 
     // ... [mantieni gli altri event listener esistenti] ...
     container.appendChild(card);
+
+    // Aggiungi marker sulla mappa per ogni experience
+    data.marker = L.marker(data.position).addTo(map);
+    data.marker.bindPopup(data.title)
 }
 
 function addToItinerary(city, title, amount) {
@@ -251,16 +285,8 @@ checkoutBtn.addEventListener('click', () => {
     window.open(checkoutUrl, '_blank');
 });
 
-/* #endregion Cart Sidebar Javascript */
 
-document.querySelectorAll('.map-city').forEach(cityEl => {
-    const cityName = cityEl.dataset.city;
-    const labelSpan = cityEl.querySelector('.map-city__sign');
 
-    if (labelSpan) {
-        labelSpan.textContent = cityName;
-    }
-});
 
 
 const toggleBtn = document.getElementById("toggle-cart");
@@ -270,4 +296,5 @@ const sidebar = document.querySelector(".sidebar");
 toggleBtn.addEventListener("click", () => {
     sidebar.classList.toggle("open");
 });
+
 
