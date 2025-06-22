@@ -539,7 +539,7 @@ body {
 }
 
 /* Versione mobile */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .cards-container {
         margin-top: 40vh;
         padding: 1rem;
@@ -563,4 +563,4 @@ body {
         transform: translateY(-50%);
         max-height: 80vh;
     }
-}
+} */
