@@ -24,12 +24,13 @@ const experiences = {
         city: "Hiroshima",
         position: [34.384768176738234, 132.46044279477556]
     },
-    "Hiroshima2": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima",
-        position: [34.384768176738234, 132.46044279477556]
+    "Akihabara": {
+        title: "Colazione/Merenda At Home Cafe",
+        description: 'Colazione o merenda in un maid cafe, costretti a ballare e cantare motivetti stupidi pur di mangiare qualcosa...che ci piaccia o no.',
+        amount: "50",
+        image: "img/At-home_cafe.jpg",
+        city: "Akihabara",
+        position: [35.7008900593421, 139.7718236314047]
     },
     "Hiroshima3": {
         title: "Museo della Pace a Hiroshima",
@@ -125,6 +126,12 @@ const experiences = {
 
 
 
+function BuildPopupContent(title, image, description){
+    return '<div style="max-height: 30vh; overflow: hidden; display: flex; flex-direction: column;"><h4 style="margin:0 0 8px 0;color:#ff69b4">' + title + '</h4>'+
+        '<img src="'+ image +'" style="width:100%;margin-bottom:8px" />'+
+        '<p style="margin:4px 0;font-size:0.9em">'+ description +'</p></div>'
+}
+
 
 
 
@@ -134,7 +141,7 @@ const experiences = {
 var neutralViewPos = [35.21305271629127, 136.41241296367983]
 var neutralViewZoom = 7
 
-var map = L.map('map').setView(neutralViewPos, neutralViewZoom);
+var map = L.map('map', {zoomControl: false}).setView(neutralViewPos, neutralViewZoom);
 
 // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //     maxZoom: 19,
@@ -232,6 +239,7 @@ for (const city in experiences) {
 
     card.addEventListener("mouseenter", () => {
         if (!isMouseDown){
+            map.closePopup();
             data.marker.openPopup();
             map.flyTo(data.position, 9, {animate: true, duration: 1});
         }
@@ -239,16 +247,13 @@ for (const city in experiences) {
     });
 
     
-    card.addEventListener("mouseleave", () => {
-        data.marker.closePopup();
-    });
 
     // ... [mantieni gli altri event listener esistenti] ...
     container.appendChild(card);
 
     // Aggiungi marker sulla mappa per ogni experience
     data.marker = L.marker(data.position).addTo(map);
-    data.marker.bindPopup(data.title)
+    data.marker.bindPopup(BuildPopupContent(data.title, data.image, data.description))
 }
 
 function addToItinerary(city, title, amount) {
