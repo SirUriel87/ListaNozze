@@ -2,28 +2,23 @@ const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=d
 const isMobile = window.innerWidth <= 768
 
 const experiences = {
-    "Tokyo": {
-        title: "Serata sushi a Tokyo",
-        description: "Regala una cena tradizionale in un sushi bar storico di Shinjuku!",
-        amount: "50",
-        city: "Tokyo",
-        position: [35.67911376451128, 139.67184740774755]
+    "Ueno-Swans": {
+        title: "Cigni a Ueno",
+        description: "Una romantica ed imbarazzante nuotata nel parco di Ueno (Tokyo). Ci si guadagna in amore ma si perde in dignità",
+        amount: "150",
+        image: "img/swanboat-ueno.jpg",
+        city: "Ueno",
+        position: [35.71174727274224, 139.7706110044339]
     },
-    "Kyoto": {
-        title: "Cerimonia del tè a Kyoto",
-        description: "Un momento zen in un'antica casa da tè con vista sul giardino giapponese.",
-        amount: "100",
-        city: "Kyoto",
-        position: [34.86791645980951, 135.81773554778758]
-    },
-    "Hiroshima": {
+    "Hiroshima-Memorial": {
         title: "Museo della Pace a Hiroshima",
         description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
         amount: "200",
+        image: "img/hiroshima-memorial.jpg",
         city: "Hiroshima",
-        position: [34.384768176738234, 132.46044279477556]
+        position: [34.39300096391687, 132.4522870279658]
     },
-    "Akihabara": {
+    "Akihabara-AtHome": {
         title: "Colazione/Merenda At Home Cafe",
         description: 'Colazione o merenda in un maid cafe, costretti a ballare e cantare motivetti stupidi pur di mangiare qualcosa...che ci piaccia o no.',
         amount: "50",
@@ -31,104 +26,23 @@ const experiences = {
         city: "Akihabara",
         position: [35.7008900593421, 139.7718236314047]
     },
-    "Hiroshima3": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima",
-        position: [34.384768176738234, 132.46044279477556]
+    "Fukusaki-Yokai": {
+        title: "Tour Yokai in bici",
+        description: 'Tour in bici per la cittadina di Fukusaki dove in ogni angolo si nascondono yokai e mostri giapponesi. Vediamo se riusciamo a trovarli tutti.',
+        amount: "75",
+        image: "img/fukusaki-yokai.jpg",
+        city: "Fukusaki",
+        position: [34.95413939702594, 134.75666483282498]
     },
-    "Hiroshima4": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima",
-        position: [34.384768176738234, 132.46044279477556]
-    },
-    "Hiroshima5": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima",
-        position: [34.384768176738234, 132.46044279477556]
-    },
-    "Hiroshima6": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima",
-        position: [34.384768176738234, 132.46044279477556]
-    },
-    "Hiroshima7": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima",
-        position: [34.384768176738234, 132.46044279477556]
-    },
-    "Hiroshima8": {
-        title: "Museo della Pace a Hiroshima",
-        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-        amount: "200",
-        city: "Hiroshima",
-        position: [34.384768176738234, 132.46044279477556]
-    },
-    // "1": {
-    //     title: "Museo della Pace a Hiroshima",
-    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia. bla bla bla bla blala bla bla bla blala bla bla bla blala bla bla bla bla",
-    //     amount: "200",
-    //     city: "Hiroshima"
-    // },
-    // "2": {
-    //     title: "Museo della Pace a Hiroshima",
-    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //     amount: "200",
-    //     city: "Hiroshima"
-    // },
-    // "3": {
-    //     title: "Museo della Pace a Hiroshima",
-    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //     amount: "200",
-    //     city: "Hiroshima"
-    // },
-    // "4": {
-    //     title: "Museo della Pace a Hiroshima",
-    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //     amount: "200",
-    //     city: "Hiroshima"
-    // },
-    // "5": {
-    //     title: "Museo della Pace a Hiroshima",
-    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //     amount: "200",
-    //     city: "Hiroshima"
-    // },
-    // "6": {
-    //     title: "Museo della Pace a Hiroshima",
-    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //     amount: "200",
-    //     city: "Hiroshima"
-    // },
-    // "7": {
-    //     title: "Museo della Pace a Hiroshima",
-    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //     amount: "200",
-    //     city: "Hiroshima"
-    // },
-    // "sd": {
-    //     title: "Museo della Pace a Hiroshima",
-    //     description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
-    //     amount: "200",
-    //     city: "Hiroshima"
-    // },
 };
 
 
 
 function BuildPopupContent(title, image, description){
-    return '<div style="max-height: 30vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;"><h4 style="margin:0 0 8px 0;color:#ff69b4">' + title + '</h4>'+
-        '<img src="'+ image +'" class="popup-image" />'+
-        '<p style="margin:4px 0;font-size:0.9em">'+ description +'</p></div>'
+    return '<div style="max-height: 30vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;">'+
+    '<h4 style="margin:0 0 8px 0;color:#008bf8">' + title + '</h4>'+
+    '<img src="'+ image +'" class="popup-image" />'+
+    '<p style="margin:4px 0;font-size:0.9em">'+ description +'</p></div>'
 }
 
 
