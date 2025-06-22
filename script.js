@@ -1,6 +1,5 @@
 const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
-
-var isMouseDown = false;
+const isMobile = window.innerWidth <= 768
 
 const experiences = {
     "Tokyo": {
@@ -127,8 +126,8 @@ const experiences = {
 
 
 function BuildPopupContent(title, image, description){
-    return '<div style="max-height: 30vh; overflow: hidden; display: flex; flex-direction: column;"><h4 style="margin:0 0 8px 0;color:#ff69b4">' + title + '</h4>'+
-        '<img src="'+ image +'" style="width:100%;margin-bottom:8px" />'+
+    return '<div style="max-height: 30vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;"><h4 style="margin:0 0 8px 0;color:#ff69b4">' + title + '</h4>'+
+        '<img src="'+ image +'" class="popup-image" />'+
         '<p style="margin:4px 0;font-size:0.9em">'+ description +'</p></div>'
 }
 
@@ -139,9 +138,11 @@ function BuildPopupContent(title, image, description){
 // #region map initialization
 
 var neutralViewPos = [35.21305271629127, 136.41241296367983]
-var neutralViewZoom = 7
+var neutralViewZoom = isMobile ? 5 : 7
 
-var map = L.map('map', {zoomControl: false}).setView(neutralViewPos, neutralViewZoom);
+var map = L.map('map', {zoomControl: false})
+.setView(neutralViewPos, neutralViewZoom)
+.panInside(neutralViewPos, {paddingBottomRight: [0, 500]});
 
 // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //     maxZoom: 19,
@@ -150,7 +151,7 @@ var map = L.map('map', {zoomControl: false}).setView(neutralViewPos, neutralView
 
 L.tileLayer('https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=c131d2ef446a4a6ebc6006e42787346f', {
     maxZoom: 19,
-    minZoom: 7,
+    minZoom: neutralViewZoom,
 	attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
@@ -238,10 +239,12 @@ for (const city in experiences) {
     });
 
     card.addEventListener("mouseenter", () => {
-        if (!isMouseDown){
+        if (!isDragging){
             map.closePopup();
             data.marker.openPopup();
-            map.flyTo(data.position, 9, {animate: true, duration: 1});
+            map.flyTo(data.position, 9, {
+                animate: true, 
+                duration: 1});
         }
         
     });
@@ -354,13 +357,4 @@ const sidebar = document.querySelector(".sidebar");
 // Apri/chiudi sidebar su click bottone
 toggleBtn.addEventListener("click", () => {
     sidebar.classList.toggle("open");
-});
-
-
-document.addEventListener('mousedown', function() {
-    isMouseDown = true;
-});
-
-document.addEventListener('mouseup', function() {
-    isMouseDown = false;
 });

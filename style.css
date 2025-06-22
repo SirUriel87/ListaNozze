@@ -486,6 +486,14 @@ body {
 
 
 
+/* Contenuto popup dei marker */
+.popup-image{
+    width:100%;
+    margin-bottom:8px
+}
+
+
+
 /* Versione Mobile */
 @media (max-width: 768px) {
     .toggle-cart-btn {
@@ -551,5 +559,10 @@ body {
     .text-title {
         font-size: 1em; /* Titolo più piccolo */
         margin-bottom: 0.2em;
+    }
+
+    .popup-image{
+        max-width: 150px; /* Più piccola su mobile */
+        margin-bottom:8px
     }
 }
