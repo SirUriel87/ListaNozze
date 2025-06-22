@@ -1,5 +1,7 @@
 const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
 
+var isMouseDown = false;
+
 const experiences = {
     "Tokyo": {
         title: "Serata sushi a Tokyo",
@@ -16,6 +18,55 @@ const experiences = {
         position: [34.86791645980951, 135.81773554778758]
     },
     "Hiroshima": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima",
+        position: [34.384768176738234, 132.46044279477556]
+    },
+    "Hiroshima2": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima",
+        position: [34.384768176738234, 132.46044279477556]
+    },
+    "Hiroshima3": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima",
+        position: [34.384768176738234, 132.46044279477556]
+    },
+    "Hiroshima4": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima",
+        position: [34.384768176738234, 132.46044279477556]
+    },
+    "Hiroshima5": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima",
+        position: [34.384768176738234, 132.46044279477556]
+    },
+    "Hiroshima6": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima",
+        position: [34.384768176738234, 132.46044279477556]
+    },
+    "Hiroshima7": {
+        title: "Museo della Pace a Hiroshima",
+        description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
+        amount: "200",
+        city: "Hiroshima",
+        position: [34.384768176738234, 132.46044279477556]
+    },
+    "Hiroshima8": {
         title: "Museo della Pace a Hiroshima",
         description: "Un regalo che lascia il segno: visita e riflessione nel cuore della storia.",
         amount: "200",
@@ -180,8 +231,11 @@ for (const city in experiences) {
     });
 
     card.addEventListener("mouseenter", () => {
-        data.marker.openPopup();
-        map.setView(data.position, 9, {animate: true});
+        if (!isMouseDown){
+            data.marker.openPopup();
+            map.setView(data.position, 9, {animate: true});
+        }
+        
     });
 
     
@@ -298,3 +352,10 @@ toggleBtn.addEventListener("click", () => {
 });
 
 
+document.addEventListener('mousedown', function() {
+    isMouseDown = true;
+});
+
+document.addEventListener('mouseup', function() {
+    isMouseDown = false;
+});

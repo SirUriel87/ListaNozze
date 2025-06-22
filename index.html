@@ -18,23 +18,29 @@
 
 <body style="background-color: #a8d4f3;">
 
-  <!-- Lista Carrello -->
-  <div class="sidebar">
-    <h3>Carrello</h3>
-    <div class="selected-activities" id="selected-activities">
-      <!-- Le attività selezionate appariranno qui -->
-    </div>
-    <button class="checkout-btn" id="checkout-btn">Checkout (€<span id="total-amount">0</span>)</button>
-  </div>
+  <div id="map" class=".map"></div>
+
 
   <div class="container">
-     <div id="map" class=".map"></div>
+     <!-- Lista Carrello -->
+    <div class="sidebar">
+      <h3>Carrello</h3>
+      <div class="selected-activities" id="selected-activities">
+        <!-- Le attività selezionate appariranno qui -->
+      </div>
+      <button class="checkout-btn" id="checkout-btn">Checkout (€<span id="total-amount">0</span>)</button>
+    </div>
+
+    <!-- Lista card -->
+    <div class="cards-container" id="cards-container"></div>
+
+    <button id="toggle-cart" class="toggle-cart-btn">🛒 Carrello</button>
   </div>
+  
 
-  <!-- Lista card -->
-  <div class="cards-container" id="cards-container"></div>
+  
 
-  <button id="toggle-cart" class="toggle-cart-btn">🛒 Carrello</button>
+  
   <script src="script.js"> </script>
 </body>
 
