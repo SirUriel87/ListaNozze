@@ -329,7 +329,7 @@ body {
     max-height: 60%;
     gap: 1.5rem;
     padding: 2rem;
-    margin-top: 60vh; /* Inizia a circa 60% della viewport */
+    margin-top: 65vh; /* Inizia a circa 60% della viewport */
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     cursor: grab;

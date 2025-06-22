@@ -233,7 +233,7 @@ for (const city in experiences) {
     card.addEventListener("mouseenter", () => {
         if (!isMouseDown){
             data.marker.openPopup();
-            map.setView(data.position, 9, {animate: true});
+            map.flyTo(data.position, 9, {animate: true, duration: 1});
         }
         
     });
