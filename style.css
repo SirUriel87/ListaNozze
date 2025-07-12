@@ -631,3 +631,15 @@ body {
         transition: all 0.3s ease-out;
     }
 }
+
+
+html {
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+    height: 100%;
+    overflow: auto;
+}

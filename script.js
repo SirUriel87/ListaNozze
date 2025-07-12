@@ -145,7 +145,7 @@ const experiences = [
 experiences.sort((x,y) => (x.amount - y.amount));
 
 function BuildPopupContent(title, image, description){
-    return '<div style="max-height: 40vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;">'+
+    return '<div style="max-height: 37vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;">'+
     '<h3 style="margin:0 0 8px 0;color:#008bf8">' + title + '</h3>'+
     '<img src="'+ image +'" class="popup-image" />'+
     '<p style="margin:4px 0;font-size:1.1em">'+ description +'</p></div>'
