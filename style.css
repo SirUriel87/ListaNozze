@@ -13,11 +13,10 @@
 
 body {
     margin: 0;
-    padding: 0;
     overflow-x: hidden;
     font-family: sans-serif;
     background: #fdf7f2;
-    padding: 1rem;
+    padding-bottom: 0%;
 }
 
 
@@ -336,7 +335,6 @@ body {
     overflow-y: auto; /* Scroll verticale se necessario */
     overflow-x: hidden; /* Disabilita lo scroll orizzontale */
     gap: 1.5rem;
-    padding: 2rem;
     margin-top: 40vh; /* Inizia a circa 50% della viewport */
     scroll-snap-type: y mandatory; /* Rimuovi lo snap orizzontale */
     -webkit-overflow-scrolling: touch;
@@ -345,9 +343,9 @@ body {
     scroll-behavior: smooth;
     will-change: scroll-position;
     position: relative;
-
+    justify-items: center;
     justify-content: center; /* Centra le card orizzontalmente */
-    max-height: 50vh; /* Altezza massima */
+    max-height: 55vh; /* Altezza massima */
     height: auto;
 
 }
@@ -358,7 +356,7 @@ body {
 
 .cards-container::-webkit-scrollbar-thumb {
     background: #ccc;
-    border-radius: 4px;
+    /* border-radius: 4px; */
 }
 
 .cards-container.active {
@@ -415,7 +413,6 @@ body {
     font-size: 1.2rem;
     padding: 0.5rem 1rem;
     margin: 8px;
-    position: absolute;
     left: 50%;
     bottom: 0;
     opacity: 1;
@@ -425,12 +422,69 @@ body {
     align-items: center;
     display: flex;
     justify-content: center;
+
+    position: absolute; /* Aggiunto per posizionare l'icona */
+    overflow: hidden; /* Per nascondere l'icona quando è fuori */
 }
 
 
 .card-button.selected {
-    background-color: var(--highlightActiveColor);
+    border-radius: 3rem;
+    font-size: 1.7rem;
+    font-weight: bold;
 }
+
+
+/* #region done icon */
+@media (min-width: 769px){
+    .card-button.selected::before {
+        content: "\f00c"; 
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        left: -1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: all 0.3s ease-out;
+        font-size: 1.5rem;
+    }
+
+    .card-button.selected.show-icon::before {
+        left: 1rem; 
+        opacity: 1;
+    }
+
+    .card-button::after {
+        content: "";
+        position: absolute;
+        right: -30px;
+        /* Inizia fuori dal bottone */
+        top: 43%;
+        transform: translateY(-50%);
+        transition: all 0.3s ease-out;
+        opacity: 0;
+        top: calc(50% + 1px);
+        /* Micro-regolazione verticale */
+    }
+
+    .card:hover .card-button::after {
+        content: "\f07a";
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        font-size: 23px;
+        /* Dimensione fissa in pixel */
+        /* width: 20px; Larghezza fissa per allineamento migliore */
+        text-align: center;
+        /* Centra l'icona */
+        right: 18px;
+        /* Posizione finale dentro il bottone */
+        opacity: 1;
+    }
+}
+
+
+/* #endregion done icon */
 
 .card-button.selected::after {
     content: none;
@@ -439,41 +493,10 @@ body {
 
 
 .card:hover {
-    border-color: var(--highlightActiveColor);
     transition: 0.3s ease-out;
 }
 
-.card:hover .card-button {
-    background-color: var(--highlightActiveColor);
 
-}
-
-.card-button::after {
-    content: "";
-    position: absolute;
-    right: -30px;
-    /* Inizia fuori dal bottone */
-    top: 43%;
-    transform: translateY(-50%);
-    transition: all 0.3s ease-out;
-    opacity: 0;
-    top: calc(50% + 1px);
-    /* Micro-regolazione verticale */
-}
-
-.card:hover .card-button::after {
-    content: "\f07a";
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    font-size: 23px;
-    /* Dimensione fissa in pixel */
-    /* width: 20px; Larghezza fissa per allineamento migliore */
-    text-align: center;
-    /* Centra l'icona */
-    right: 18px;
-    /* Posizione finale dentro il bottone */
-    opacity: 1;
-}
 
 
 /* #endregion CARD */
@@ -511,6 +534,7 @@ body {
 @media (max-width: 768px) {
     .toggle-cart-btn {
         display: block;
+        margin-top: 5vh;
     }
 
     .sidebar {
@@ -557,6 +581,7 @@ body {
         padding-bottom: 2.6rem;
     }
 
+
     .cards-container {
         flex-direction: column;
         flex-wrap: nowrap; /* Disabilita il wrapping su più righe */
@@ -566,6 +591,7 @@ body {
         padding: 0 1rem;
         margin-top: 40vh;
         height: 60vh;
+        justify-items: baseline;
 
 
         max-height: 60vh;
@@ -590,7 +616,18 @@ body {
     }
 
     .popup-image{
-        max-width: 150px; /* Più piccola su mobile */
-        margin-bottom:8px
+        max-width: 250px; /* Più piccola su mobile */
+        max-height: 135px;
+        margin-bottom:8px;
+        width: auto; /* Adatta alla larghezza mantenendo le proporzioni */
+    }
+
+
+    /* Aggiungi l'effetto per le card selezionate */
+    .card.selected {
+        width: 120%;
+        z-index: 10; /* Porta in primo piano le card selezionate */
+        transform: translateX(-10%); /* Centra l'allargamento */
+        transition: all 0.3s ease-out;
     }
 }

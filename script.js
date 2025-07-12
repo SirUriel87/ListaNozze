@@ -1,5 +1,6 @@
 const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
-const isMobile = window.innerWidth <= 768
+const isMobile = window.innerWidth <= 768;
+const offsetCoefficient = (isMobile ? 300 : 400);
 
 const experiences = [
     {
@@ -12,7 +13,7 @@ const experiences = [
     },
      {
         title: "Cigni a Ueno",
-        description: "Una romantica ed imbarazzante nuotata nel parco di Ueno (Tokyo). Ci si guadagna in amore ma si perde in dignità",
+        description: "Una romantica ed imbarazzante pedalata su delle barchette a forma di cigno nel parco di Ueno. Ci si guadagna in amore ma si perde in dignità",
         amount: 10,
         image: "img/swanboat-ueno.jpg",
         city: "Ueno",
@@ -159,7 +160,7 @@ function BuildPopupContent(title, image, description){
 var neutralViewPos = [35.21305271629127, 136.41241296367983]
 var neutralViewZoom = isMobile ? 5 : 7
 
-var map = L.map('map', {zoomControl: false})
+var map = L.map('map', {zoomControl: false, attributionControl: false})
 .setView(neutralViewPos, neutralViewZoom)
 .panInside(neutralViewPos, {paddingBottomRight: [0, 500]});
 
@@ -193,7 +194,6 @@ let rafId = null;
 
 function updateScroll() {
     const deltaY = currentY - startY;
-    if (deltaY != 0) debugger;
     slider.scrollTop = startScrollTop - deltaY;
     rafId = requestAnimationFrame(updateScroll);
 }
@@ -264,7 +264,6 @@ for (const city in experiences) {
 
     const card = document.createElement("div");
     card.className = "card";
-    debugger;
     card.style.borderColor = expColor;
     card.innerHTML = `
         <div class="card-details">
@@ -282,6 +281,12 @@ for (const city in experiences) {
 
         // Feedback visivo
         button.classList.toggle('selected');
+        card.classList.toggle('selected');
+
+        // Piccolo timeout per garantire che l'animazione funzioni
+        setTimeout(() => {
+            button.classList.toggle('show-icon');
+        }, 5);
 
     });
 
@@ -292,7 +297,10 @@ for (const city in experiences) {
             
             let fixedPos = [...data.position];
             // Aggiungi offset verticale per migliore visualizzazione
-            fixedPos[0] = fixedPos[0] - 0.10;
+            let viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+            let offset = (viewportHeight * 5 / 100);
+            offset = offset / offsetCoefficient; // Dividi per un coefficiente in modo da trasformare i px in unita di misura della mappa
+            fixedPos[0] = fixedPos[0] - offset;
             
             map.flyTo(fixedPos, 9, {
                 animate: true, 
