@@ -2,6 +2,13 @@
     --pointInitSize: 30px;
     --highlightColor: #7a7a7a;
     --highlightActiveColor: #008bf8;
+    --tenColor: #008a94;
+    --twentyColor: #009456;
+    --fiftyColor: #918900;
+    --onehunColor: #b26b00;
+    --twohunColor: #6e1010;
+    --threehunColor: #8d1f6a;
+    --fivehunColor: #4f106e;
 }
 
 body {
@@ -325,18 +332,24 @@ body {
 
 .cards-container {
     display: flex;
-    overflow-x: auto;
-    max-height: 60%;
+    flex-wrap: wrap; /* Permette alle card di andare a capo */
+    overflow-y: auto; /* Scroll verticale se necessario */
+    overflow-x: hidden; /* Disabilita lo scroll orizzontale */
     gap: 1.5rem;
     padding: 2rem;
-    margin-top: 65vh; /* Inizia a circa 60% della viewport */
-    scroll-snap-type: x mandatory;
+    margin-top: 40vh; /* Inizia a circa 50% della viewport */
+    scroll-snap-type: y mandatory; /* Rimuovi lo snap orizzontale */
     -webkit-overflow-scrolling: touch;
     cursor: grab;
     user-select: none;
     scroll-behavior: smooth;
     will-change: scroll-position;
     position: relative;
+
+    justify-content: center; /* Centra le card orizzontalmente */
+    max-height: 50vh; /* Altezza massima */
+    height: auto;
+
 }
 
 .cards-container::-webkit-scrollbar {
@@ -356,7 +369,7 @@ body {
 
 .card {
     width: 190px;
-    height: 254px;
+    height: 150px;
     border-radius: 20px;
     background: #f5f5f5;
     position: relative;
@@ -541,16 +554,31 @@ body {
         height: auto; /* Adatta l'altezza automaticamente */
         padding: 0.4rem;
         position: relative;
-        padding-bottom: 2.5rem;
+        padding-bottom: 2.6rem;
     }
 
     .cards-container {
         flex-direction: column;
+        flex-wrap: nowrap; /* Disabilita il wrapping su più righe */
+        overflow-x: hidden; /* Disabilita scroll orizzontale */
+        overflow-y: auto; /* Abilita scroll verticale */
         gap: 0.3rem;
         padding: 0 1rem;
         margin-top: 40vh;
         height: 60vh;
+
+
+        max-height: 60vh;
+        -webkit-overflow-scrolling: touch;
+        user-select: none;
+        scroll-behavior: smooth;
+        will-change: scroll-position;
+        position: relative;
+
+        display: grid;
+        grid-auto-rows: minmax(auto, auto);
     }
+
 
     .text-body {
         display: none; /* Nasconde la descrizione */
