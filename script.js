@@ -82,6 +82,63 @@ const experiences = [
         city: "Fukusaki",
         position: [34.9562003379001, 134.76425975510884]
     },
+    {
+        title: "Shinkansen Himeji-Osaka",
+        description: 'Prendiamo nuovamente lo Shinkansen per spostarci verso Osaka',
+        amount: 50,
+        image: "img/shinkansen-himeji-osaka.jpg",
+        city: "Osaka",
+        position: [34.683196529454314, 134.9839594949819]
+    },
+    {
+        title: "La Cheesecake di Rikuro",
+        description: 'Mangiamo le buonissime e sofficissime cheesecake di Rikuro, a Osaka',
+        amount: 10,
+        image: "img/rikuro-cheesecake.jpg",
+        city: "Osaka",
+        position: [34.673777890251785, 135.50137367488838]
+    },
+    {
+        title: "Castello di Osaka",
+        description: 'Altra città altra visita a un castello, a questo giro è il turno di Osaka',
+        amount: 20,
+        image: "img/osaka-castle.jpg",
+        city: "Osaka",
+        position: [34.68738195602505, 135.52582914903797]
+    },
+    {
+        title: "Ruota Panoramica al Mega Donqui",
+        description: 'Giro sulla ruota panoramica intorno all\'insegna di un famosissimo negozio di souvenir. Sara si cacherà addosso?',
+        amount: 10,
+        image: "img/mega-don-qui.jpg",
+        city: "Osaka",
+        position: [34.674867379755085, 135.5018279225278]
+    },
+    {
+        title: "Merenda al Pink Kawaii Cafe",
+        description: 'Facciamo merenda in questo sobrissimo cafè, dove una nostra foto può venire stampata su una bibita. Ad Ale stanno già sanguinando gli occhi',
+        amount: 20,
+        image: "img/pink-kawaii-cafe.jpg",
+        city: "Osaka",
+        position: [34.66948735111569, 135.50203195274165]
+    },
+    {
+        title: "Shinkansen Osaka-Kyoto",
+        description: 'Viaggio direzione Kyoto con lo Shinkansen',
+        amount: 50,
+        image: "img/shinkansen-osaka-kyoto.jpg",
+        city: "Kyoto",
+        position: [34.88137728200263, 135.71082583473853]
+    },
+    {
+        title: "Katsuoji e Minoh Park",
+        description: 'Gita, comprensiva di treni e biglietti d\'ingresso, al Katsuoji (tempio delle bambole Daruma) e al Minoh Park (parco nazionale di Minoh)',
+        amount: 50,
+        image: "img/katsuoji-minoh-park.jpg",
+        city: "Osaka",
+        position: [34.86578397580111, 135.4909689797329]
+    },
+    
 ];
 
 experiences.sort((x,y) => (x.amount - y.amount));
