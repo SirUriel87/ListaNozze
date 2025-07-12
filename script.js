@@ -156,7 +156,14 @@ for (const city in experiences) {
         if (!isDragging){
             map.closePopup();
             data.marker.openPopup();
-            map.flyTo(data.position, 9, {
+            
+            let fixedPos = [...data.position];
+            if (isMobile){
+                // Aggiungi offset verticale per migliore visualizzazione su smartphone
+                fixedPos[0] = fixedPos[0] - 0.10;
+            }
+            
+            map.flyTo(fixedPos, 9, {
                 animate: true, 
                 duration: 1});
         }
