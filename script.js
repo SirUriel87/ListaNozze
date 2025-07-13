@@ -1,4 +1,4 @@
-const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
+const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
 const isMobile = window.innerWidth <= 768;
 const offsetCoefficient = (isMobile ? 300 : 400);
 
