@@ -4,7 +4,7 @@ const offsetCoefficient = (isMobile ? 300 : 400);
 
 const experiences = [
     {
-        title: "Colazione/Merenda At Home Cafe",
+        title: "Merenda At Home Cafe",
         description: 'Colazione o merenda in un maid cafe, costretti a ballare e cantare motivetti stupidi pur di mangiare qualcosa...che ci piaccia o no.',
         amount: 20,
         image: "img/At-home_cafe.jpg",
@@ -20,7 +20,7 @@ const experiences = [
         position: [35.71199849138613, 139.77191305357505]
     },
      {
-        title: "Shinkansen Tokyo-Hiroshima",
+        title: "Treno Tokyo-Hiroshima",
         description: "Viaggio nel famoso treno proiettile, partenza Tokyo destinazione Hiroshima...ci vorrà un pò",
         amount: 200,
         image: "img/shinkansen-tokyo-hiroshima.jpg",
@@ -28,7 +28,7 @@ const experiences = [
         position: [35.12499575494723, 138.48630358663596]
     },
      {
-        title: "Okonomiyaki a Okonomimura",
+        title: "Okonomiyaki a Osaka",
         description: 'Non spaventatevi per il titolo, andiamo solo a provare la famosa Okonomiyaki (tipo una frittata) di Hiroshima.',
         amount: 20,
         image: "img/okonomimura.jpg",
@@ -36,7 +36,7 @@ const experiences = [
         position: [34.39155812061836, 132.4618584820796]
     },
      {
-        title: "Traghetto per l'isola di Miyajima",
+        title: "Traghetto per Miyajima",
         description: 'Traghetto per raggiungere Miyajima dove potremo ammirare il famoso Torii (portale) immerso nell\'acqua.',
         amount: 20,
         image: "img/traghetto-hiroshima-miyajima.jpg",
@@ -44,7 +44,7 @@ const experiences = [
         position: [34.302495052637944, 132.32239497358432]
     },
      {
-        title: "Pranzo al Rilakkuma Sabo",
+        title: "Pranzo con Rilakkuma",
         description: 'Offriteci un pranzo nel ristorante di una famosa mascotte giapponese che Sara adora... probabilmente impazzirà',
         amount: 50,
         image: "img/rilakkuma-sabo.jpg",
@@ -52,7 +52,7 @@ const experiences = [
         position: [34.30940248285368, 132.31291859843256]
     },
      {
-        title: "Shinkansen Hiroshima-Himeji",
+        title: "Treno Hiroshima-Himeji",
         description: 'Ci spostiamo di nuovo con il treno proiettile verso Himeji, la città del famoso castello dell\'airone bianco',
         amount: 100,
         image: "img/shinkansen-hiroshima-himeji.jpg",
@@ -84,7 +84,7 @@ const experiences = [
         position: [34.9562003379001, 134.76425975510884]
     },
     {
-        title: "Shinkansen Himeji-Osaka",
+        title: "Treno Himeji-Osaka",
         description: 'Prendiamo nuovamente lo Shinkansen per spostarci verso Osaka',
         amount: 50,
         image: "img/shinkansen-himeji-osaka.jpg",
@@ -108,15 +108,15 @@ const experiences = [
         position: [34.68738195602505, 135.52582914903797]
     },
     {
-        title: "Ruota Panoramica al Mega Donqui",
-        description: 'Giro sulla ruota panoramica intorno all\'insegna di un famosissimo negozio di souvenir. Sara si cacherà addosso?',
+        title: "Ruota Panoramica",
+        description: 'Giro sulla ruota panoramica intorno all\'insegna del Don Quijote, un famosissimo negozio di souvenir. Sara si cacherà addosso?',
         amount: 10,
         image: "img/mega-don-qui.jpg",
         city: "Osaka",
         position: [34.674867379755085, 135.5018279225278]
     },
     {
-        title: "Merenda al Pink Kawaii Cafe",
+        title: "Pink Kawaii Cafe",
         description: 'Facciamo merenda in questo sobrissimo cafè, dove una nostra foto può venire stampata su una bibita. Ad Ale stanno già sanguinando gli occhi',
         amount: 20,
         image: "img/pink-kawaii-cafe.jpg",
@@ -124,7 +124,7 @@ const experiences = [
         position: [34.66948735111569, 135.50203195274165]
     },
     {
-        title: "Shinkansen Osaka-Kyoto",
+        title: "Treno Osaka-Kyoto",
         description: 'Viaggio direzione Kyoto con lo Shinkansen',
         amount: 50,
         image: "img/shinkansen-osaka-kyoto.jpg",
@@ -232,7 +232,7 @@ const totalAmountElement = document.getElementById('total-amount');
 const selectedActivitiesContainer = document.getElementById('selected-activities');
 const checkoutBtn = document.getElementById('checkout-btn');
 
-// Modifica il loop di creazione delle cards per aggiungere il click handler
+// #region Loop di creazione delle cards
 for (const city in experiences) {
     const data = experiences[city];
     const url = staticLink.replace("%amount%", data.amount).replace("%title%", encodeURIComponent(data.title));
@@ -268,7 +268,8 @@ for (const city in experiences) {
     card.innerHTML = `
         <div class="card-details">
           <div class="text-title">${data.title}</div>
-          <div class="text-body">${data.description}</div>
+          <img src="${data.image}" class="card-image" />
+          <div class="mobile-details">Dettagli...</div>
         </div>
         <a class="card-button" style="background-color: ${expColor}" href="#" data-city="${data.city}" data-amount="${data.amount}">${data.amount} €</a>
       `;
@@ -318,6 +319,9 @@ for (const city in experiences) {
     data.marker = L.marker(data.position).addTo(map);
     data.marker.bindPopup(BuildPopupContent(data.title, data.image, data.description))
 }
+
+// #endregion Loop di creazione delle cards
+
 
 function addToItinerary(city, title, amount) {
     // Controlla se l'attività è già stata aggiunta
@@ -407,10 +411,6 @@ checkoutBtn.addEventListener('click', () => {
     window.open(checkoutUrl, '_blank');
 });
 
-
-
-
-
 const toggleBtn = document.getElementById("toggle-cart");
 const sidebar = document.querySelector(".sidebar");
 
@@ -418,3 +418,18 @@ const sidebar = document.querySelector(".sidebar");
 toggleBtn.addEventListener("click", () => {
     sidebar.classList.toggle("open");
 });
+
+
+
+// #region welcome page
+const btnGo = document.getElementById('btnGo');
+
+btnGo.addEventListener("click", () => {
+    document.getElementById('welcomePage').classList.add('hidden');
+    setTimeout(() => {
+        document.getElementById('welcomePage').style.display = 'none';
+    }, 500); // Match con la durata della transizione
+
+})
+
+// #endregion welcome page

@@ -11,6 +11,119 @@
     --fivehunColor: #4f106e;
 }
 
+/* #region welcome page */
+.welcome {
+    width: 100%;
+    height: 100%;
+    z-index: 5000;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    align-items: center;
+    padding: 2rem 0rem;
+    
+    /* animazione */
+    transform: translateY(0);
+    transition: all 0.5s ease-out;
+
+    /* immagine sfondo */
+    background: 
+        linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8)),
+        url('img/welcome.jpg') center/cover no-repeat;
+    /* background-image: url('img/welcome.jpg'); */
+    /* background-size: cover;       
+    background-position: center;  
+    background-repeat: no-repeat; 
+    background-attachment: fixed;   */
+
+    overflow-y: auto; /* Abilita lo scroll verticale */
+    overscroll-behavior: contain; /* Evita l'effetto rimbalzo */
+    -webkit-overflow-scrolling: touch; /* Scroll fluido su mobile */
+    max-height: 100vh; /* Altezza massima viewport */
+}
+
+/* #region stili per il content */
+
+.welcome-content {
+  max-width: 600px;
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.welcome-title {
+  color: var(--twohunColor);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-subtitle {
+  color: var(--highlightActiveColor);
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.welcome-quote {
+  font-style: italic;
+  color: var(--fiftyColor);
+  margin-bottom: 2rem;
+}
+
+.welcome-section {
+  background-color: #f9f9f9a8;
+  border-radius: 15px;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.section-title {
+  color: #992b13;
+  margin-top: 0;
+}
+
+.section-text {
+  color: #555;
+  line-height: 1.6;
+}
+
+.instructions-list {
+  text-align: left;
+  padding-left: 1.5rem;
+  color: #444;
+}
+
+.instructions-list li {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+/* #endregion stili per il content */
+
+.welcome.hidden {
+    transform: translateY(-100%);
+}
+
+.btnGo {
+    width: fit-content;
+    font-size: large;
+    height: fit-content;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background: var(--highlightActiveColor);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/* #endregion welcome page */
+
+
 body {
     margin: 0;
     overflow-x: hidden;
@@ -371,7 +484,7 @@ body {
     border-radius: 20px;
     background: #f5f5f5;
     position: relative;
-    padding: 1.8rem;
+    padding: 1rem;
     border: 2px solid #c3c6ce;
     transition: 0.5s ease-out;
     overflow: visible;
@@ -391,8 +504,16 @@ body {
     gap: 0.5em;
 }
 
+.card-image {
+    max-width: -webkit-fill-available;
+    width: 100%;
+    border-radius: 1rem; 
+    height: 127px;
+    object-fit: cover; /* Scala e ritaglia l'immagine per riempire il contenitore */
+    object-position: center; /* Centra l'immagine nel ritaglio */
+}
+
 .text-title {
-    font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 0.5em;
 }
@@ -413,7 +534,7 @@ body {
     font-size: 1.2rem;
     padding: 0.5rem 1rem;
     margin: 8px;
-    left: 50%;
+    left: 46.5%;
     bottom: 0;
     opacity: 1;
     transition: 0.3s ease-out;
@@ -434,10 +555,7 @@ body {
     font-weight: bold;
 }
 
-
-/* #region done icon */
-@media (min-width: 769px){
-    .card-button.selected::before {
+.card-button.selected::before {
         content: "\f00c"; 
         font-family: 'Font Awesome 6 Free';
         font-weight: 900;
@@ -454,6 +572,12 @@ body {
         left: 1rem; 
         opacity: 1;
     }
+
+/* #region done icon */
+@media (min-width: 769px){
+    
+
+    
 
     .card-button::after {
         content: "";
@@ -529,6 +653,20 @@ body {
 }
 
 
+/* Stile base - nascosto su desktop */
+.mobile-details {
+    display: none;
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    color: var(--highlightActiveColor);
+    font-weight: bold;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 4px;
+}
+
 
 /* Versione Mobile */
 @media (max-width: 768px) {
@@ -572,6 +710,11 @@ body {
         transform: unset;
         right: 0%;
     }
+
+    .card-button.selected {
+        padding: 0.3rem 0.2rem 0.3rem 2rem;
+    }
+
 
     .card {
         width: 100%;
@@ -630,16 +773,28 @@ body {
         transform: translateX(-10%); /* Centra l'allargamento */
         transition: all 0.3s ease-out;
     }
+
+    .card-image {
+        display: none;
+    }
+
+    .mobile-details {
+        display: block;
+    }
+
+
+    .welcome{
+        background-image: url('img/welcome.jpg'); 
+        background-size: cover;       
+        background-position: center;  
+        background-repeat: no-repeat; 
+        background-attachment: fixed;  
+    }
+    
 }
 
 
-html {
-    height: 100%;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-}
 
-body {
-    height: 100%;
-    overflow: auto;
-}
+
+
+
