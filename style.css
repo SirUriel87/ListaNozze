@@ -805,6 +805,323 @@ body {
 }
 
 
+/* #region payment modal */
+
+/* Modal Pagamento */
+.modal {
+    display: none;
+    position: fixed;
+    position-area: center;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    overflow: auto;
+}
+
+.modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 900px;
+    width: calc(100% - 40px); 
+    box-sizing: border-box; 
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    font-family: sans-serif;
+    border-top: 5px solid #ff6b6b;
+    position: relative; 
+    left: 0; 
+    transform: none; 
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-inner{
+    overflow: hidden;
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-header i {
+    font-size: 2.5rem;
+    color: #ff6b6b;
+    margin-bottom: 10px;
+}
+
+.modal-header h3 {
+    color: #333;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.selected-experiences {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+.selected-experiences h4 {
+    margin-top: 0;
+    color: #495057;
+}
+
+#experiences-list {
+    padding-left: 20px;
+    margin: 10px 0;
+    list-style-type: disc;
+}
+
+#experiences-list li {
+    margin-bottom: 8px;
+    color: #343a40;
+}
+
+.total-amount {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px 0;
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px dashed #ddd;
+    margin-bottom: 20px;
+}
+
+.payment-options h4 {
+    color: #495057;
+    margin-bottom: 15px;
+    text-align: center;
+    flex: 1;
+    min-height: 0;
+}
+
+.bank-details {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.detail-label {
+    font-weight: bold;
+    min-width: 100px;
+    color: #212529;
+}
+
+.detail-value {
+    flex: 1;
+    margin-right: 10px;
+    word-break: break-all;
+    width: 100%;
+}
+
+.copy-btn {
+    background: #008bf8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.3s;
+}
+
+.copy-btn:hover {
+    background: #0069d9;
+}
+
+.modal-footer {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #6c757d;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.modal-footer i {
+    color: #ff6b6b;
+    margin: 0 3px;
+}
+
+.close-modal {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.causale-input {
+    display: flex;
+    flex: 1;
+    gap: 5px;
+}
+
+.causale-field {
+    flex: 1;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.causale-field:focus {
+    outline: none;
+    border-color: #008bf8;
+    box-shadow: 0 0 0 2px rgba(0, 139, 248, 0.2);
+}
+
+
+@media (max-width: 768px) {
+    .modal {
+        padding: 0 10px; 
+    }
+
+    .modal-content {
+        margin: 20px auto;
+        width: calc(100% - 20px);
+        padding: 20px 15px;
+    }
+    
+    .selected-experiences {
+        max-height: 25vh; /* Meno spazio per la lista su mobile */
+    }
+    
+    .detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+    
+    .detail-label {
+        margin-bottom: 5px;
+    }
+    
+    .copy-btn {
+        margin-top: 5px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .causale-input {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .detail-value
+    .causale-field {
+        word-break: break-word; /* Migliora la gestione del testo lungo */
+        overflow-wrap: anywhere; 
+    }
+    
+    .causale-input .copy-btn {
+        width: 100%;
+    }
+    
+    .button-group {
+        flex-direction: row; /* Mantiene i pulsanti in orizzontale */
+    }
+
+
+    /* Form di conferma */
+    .confirmation-form {
+        margin-top: 20px;
+        border-top: 1px dashed #eee;
+        padding-top: 20px;
+    }
+
+    .confirmation-form label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+        color: #495057;
+    }
+
+    .confirmation-form input,
+    .confirmation-form textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .confirmation-form textarea {
+        min-height: 80px;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        background: #ff6b6b;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+        transition: background 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .submit-btn:hover {
+        background: #e05555;
+    }
+
+    .form-status {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    .form-status.success {
+        background: #e6ffed;
+        color: #22863a;
+    }
+
+    .form-status.error {
+        background: #ffebee;
+        color: #cb2431;
+    }
+
+    @media (max-width: 600px) {
+        .confirmation-form {
+            padding: 15px 0;
+        }
+    }
+}
+
+/* #endregion payment modal */
 
 
 

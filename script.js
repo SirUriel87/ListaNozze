@@ -1,6 +1,9 @@
-const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
+const staticLink = "https://paypal.me/diprimaale?country.x=IT&locale.x=it_IT";
+// const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
 const isMobile = window.innerWidth <= 768;
 const offsetCoefficient = (isMobile ? 300 : 400);
+
+// test di inserimento
 
 const experiences = [
     {
@@ -235,8 +238,6 @@ const checkoutBtn = document.getElementById('checkout-btn');
 // #region Loop di creazione delle cards
 for (const city in experiences) {
     const data = experiences[city];
-    const url = staticLink.replace("%amount%", data.amount).replace("%title%", encodeURIComponent(data.title));
-
 
     // Initializza colore card
     let expColor = ""
@@ -399,16 +400,7 @@ function updateCardButtons() {
 
 // Checkout handler
 checkoutBtn.addEventListener('click', () => {
-    if (selectedActivities.length === 0) return;
-
-    const totalAmount = selectedActivities.reduce((sum, item) => sum + parseInt(item.amount), 0);
-    const itemsList = selectedActivities.map(item => item.title).join(', ');
-
-    const checkoutUrl = staticLink
-        .replace("%amount%", totalAmount)
-        .replace("%title%", encodeURIComponent(`Itinerario: ${itemsList}`));
-
-    window.open(checkoutUrl, '_blank');
+   BuildAndShowPaymentPopup();
 });
 
 const toggleBtn = document.getElementById("toggle-cart");
@@ -433,3 +425,107 @@ btnGo.addEventListener("click", () => {
 })
 
 // #endregion welcome page
+
+
+
+// #region modal popup pagamento
+
+function BuildAndShowPaymentPopup(){
+    if (selectedActivities.length === 0) return;
+
+    const totalAmount = selectedActivities.reduce((sum, item) => sum + parseInt(item.amount), 0);
+    
+    // Aggiorna la lista esperienze
+    const experiencesList = document.getElementById('experiences-list');
+    const causaleInput = document.getElementById('causale-input');
+    experiencesList.innerHTML = '';
+    selectedActivities.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.title} (€${item.amount})`;
+        experiencesList.appendChild(li);
+
+        // Aggiungi l'esperienza anche alla causale
+        causaleInput.value += item.title + ',';
+    });
+    
+    // Togli virgola finale
+    if (causaleInput.value.endsWith(',')){
+        causaleInput.value = causaleInput.value.substring(0, causaleInput.value.length - 1);
+    }
+
+    // Rendi la causale lunga massimo 140 caratteri
+    if (causaleInput.value.length > 140){
+        causaleInput.value = causaleInput.value.substring(0, 137)
+        causaleInput.value += "..."
+    }
+
+
+    // Aggiorna il totale
+    document.getElementById('modal-total').textContent = `€${totalAmount}`;
+    
+    // Mostra il modal
+    document.getElementById('payment-modal').style.display = 'block';
+}
+
+// Funzione per copiare IBAN
+function copyToClipboard(elementId) {
+    const element = document.getElementById(elementId);
+    const text = element.value ? element.value : element.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        // Feedback visivo temporaneo
+        const btn = element.nextElementSibling || element.parentElement.querySelector('.copy-btn');
+        btn.innerHTML = '<i class="fas fa-check"></i> Copiato!';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="far fa-copy"></i> Copia';
+        }, 2000);
+    });
+}
+
+// Chiudi modal
+document.querySelector('.close-modal').addEventListener('click', () => {
+    document.getElementById('payment-modal').style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === document.getElementById('payment-modal')) {
+        document.getElementById('payment-modal').style.display = 'none';
+    }
+});
+
+// Gestione invio form
+document.getElementById('payment-confirmation-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const statusEl = form.querySelector('.form-status');
+    const guestName = document.getElementById('guest-name').value || "Anonimo";
+    const message = document.getElementById('guest-message').value || "Nessun messaggio aggiuntivo";
+    const selectedItems = selectedActivities.map(item => `${item.title} (€${item.amount})`).join('\n- ');
+    const totalAmount = document.getElementById('modal-total').textContent;
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Invio in corso...';
+    statusEl.textContent = '';
+    statusEl.className = 'form-status';
+
+    try {
+        await emailjs.send("service_66f9j32", "template_fqq9f8a", {
+            from_name: guestName,
+            message: `Esperienze selezionate:\n- ${selectedItems}\n\nTotale: ${totalAmount}\n\nMessaggio: ${message}`,
+        });
+
+        statusEl.className = 'form-status success';
+        statusEl.innerHTML = 'Messaggio inviato con successo! Grazie ❤️';
+        form.reset();
+    } catch (error) {
+        statusEl.className = 'form-status error';
+        statusEl.innerHTML = 'Errore nell\'invio...';
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Invia conferma';
+    }
+});
+
+
+// #endregion modal popup pagamento

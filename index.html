@@ -14,7 +14,77 @@
  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+      emailjs.init('3o9a8PZZ5as753dQ1');
+  </script>
 </head>
+
+<div id="payment-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-header">
+            <i class="fas fa-gift"></i>
+            <h3>Grazie per il tuo regalo!</h3>
+        </div>
+        <div class="modal-body">
+            <div class="selected-experiences">
+                <h4>Hai selezionato:</h4>
+                <ul id="experiences-list"></ul>
+            </div>
+            <div class="total-amount">
+                <span>Totale:</span>
+                <span id="modal-total">€0</span>
+            </div>
+            <div class="payment-options">
+                <h4>Pagamento con bonifico bancario</h4>
+                <div class="bank-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Intestatario:</span>
+                        <span class="detail-value">Alessandra Di Prima</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">IBAN:</span>
+                        <span class="detail-value" id="iban">IT12X0305801600100000001234</span>
+                        <button class="copy-btn" onclick="copyToClipboard('iban')">
+                            <i class="far fa-copy"></i> Copia
+                        </button>
+                    </div>
+                    <div class="detail-row">
+                      <span class="detail-label">Causale:</span>
+                      <div class="causale-input">
+                          <input type="text" id="causale-input" value="Regalo nozze Ale e Sara: " class="causale-field">
+                          <button class="copy-btn" onclick="copyToClipboard('causale-input')">
+                              <i class="far fa-copy"></i> Copia
+                          </button>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <h4>Se volete, inviateci un messaggio</h4>
+          <form id="payment-confirmation-form" class="confirmation-form">
+            <div class="detail-row">
+              <label for="guest-name">Il tuo/vostro nome: </label>
+              <input type="text" id="guest-name" placeholder="Come ti chiami?" class="causale-field">
+            </div>
+              
+              <div class="detail-row">
+                <label for="guest-message">Messaggio: </label>
+                <textarea id="guest-message" placeholder="Es: Ciaoo! Eccovi il nostro regalo, divertitevi!" class="causale-field"></textarea>
+              </div>
+              
+              
+              <button type="submit" class="copy-btn">
+                  <i class="fas fa-paper-plane"></i> Invia conferma
+              </button>
+              
+              <div class="form-status"></div>
+          </form>
+      </div>
+    </div>
+</div>
 
 <body style="background-color: #a8d4f3;">
 
