@@ -948,6 +948,10 @@ body {
     background: #0069d9;
 }
 
+.copy-btn:disabled {
+    background: #058a00;
+}
+
 .modal-footer {
     margin-top: 20px;
     font-size: 0.9rem;

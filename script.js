@@ -2,6 +2,7 @@ const staticLink = "https://paypal.me/diprimaale?country.x=IT&locale.x=it_IT";
 // const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
 const isMobile = window.innerWidth <= 768;
 const offsetCoefficient = (isMobile ? 300 : 400);
+var messageSent = false;
 
 // test di inserimento
 
@@ -459,6 +460,7 @@ function BuildAndShowPaymentPopup(){
         causaleInput.value += "..."
     }
 
+    refreshSendButton();
 
     // Aggiorna il totale
     document.getElementById('modal-total').textContent = `€${totalAmount}`;
@@ -493,7 +495,8 @@ window.addEventListener('click', (event) => {
 });
 
 // Gestione invio form
-document.getElementById('payment-confirmation-form').addEventListener('submit', async function(e) {
+document.getElementById('payment-confirmation-form')
+.addEventListener('submit', async function(e) {
     e.preventDefault();
     
     const form = e.target;
@@ -517,6 +520,8 @@ document.getElementById('payment-confirmation-form').addEventListener('submit', 
 
         statusEl.className = 'form-status success';
         statusEl.innerHTML = 'Messaggio inviato con successo! Grazie ❤️';
+        messageSent = true;
+        refreshSendButton();
         form.reset();
     } catch (error) {
         statusEl.className = 'form-status error';
@@ -528,4 +533,20 @@ document.getElementById('payment-confirmation-form').addEventListener('submit', 
 });
 
 
+function refreshSendButton(){
+    // Abilita il bottone se il messaggio non e' stato ancora inviato
+    const sendBtn = document.getElementById('btnSendMessage');
+    if (messageSent){
+        sendBtn.style.visibility = 'hidden';
+    }
+    else{
+        sendBtn.style.visibility = 'visible';
+    }
+    
+}
+
+
 // #endregion modal popup pagamento
+
+
+
