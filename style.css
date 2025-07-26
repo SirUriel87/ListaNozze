@@ -143,6 +143,7 @@ body {
     --city-pin-size-font: 2rem;
     z-index: 10; /* Sopra la mappa */
     padding-top: 20px; /* Spazio per eventuali elementi in alto */
+    pointer-events: none;
 }
 
 
@@ -511,6 +512,7 @@ body {
     height: 127px;
     object-fit: cover; /* Scala e ritaglia l'immagine per riempire il contenitore */
     object-position: center; /* Centra l'immagine nel ritaglio */
+    pointer-events: none;
 }
 
 .text-title {
@@ -1130,3 +1132,10 @@ body {
 
 
 
+.cards-container, 
+.toggle-cart-btn, 
+.sidebar, 
+.card, 
+.card-button {
+    pointer-events: auto;
+}

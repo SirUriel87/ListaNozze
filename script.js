@@ -164,7 +164,7 @@ function BuildPopupContent(title, image, description){
 var neutralViewPos = [35.21305271629127, 136.41241296367983]
 var neutralViewZoom = isMobile ? 5 : 7
 
-var map = L.map('map', {zoomControl: false, attributionControl: false})
+var map = L.map('map')
 .setView(neutralViewPos, neutralViewZoom)
 .panInside(neutralViewPos, {paddingBottomRight: [0, 500]});
 
@@ -174,7 +174,7 @@ var map = L.map('map', {zoomControl: false, attributionControl: false})
 // }).addTo(map);
 
 L.tileLayer('https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=c131d2ef446a4a6ebc6006e42787346f', {
-    maxZoom: 19,
+    // maxZoom: 19,
     minZoom: neutralViewZoom,
 	attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
