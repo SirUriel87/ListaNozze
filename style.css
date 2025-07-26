@@ -9,6 +9,12 @@
     --twohunColor: #6e1010;
     --threehunColor: #8d1f6a;
     --fivehunColor: #4f106e;
+    --badgeColor:#ff4444;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: auto; /* Permette scroll solo se necessario */
 }
 
 /* #region welcome page */
@@ -144,6 +150,9 @@ body {
     z-index: 10; /* Sopra la mappa */
     padding-top: 20px; /* Spazio per eventuali elementi in alto */
     pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 
@@ -461,7 +470,7 @@ body {
     justify-content: center; /* Centra le card orizzontalmente */
     max-height: 55vh; /* Altezza massima */
     height: auto;
-
+    flex: 1;
 }
 
 .cards-container::-webkit-scrollbar {
@@ -630,9 +639,9 @@ body {
 
 
 /* Bottone per aprire la sidebar */
-.toggle-cart-btn {
+ .toggle-cart-btn{
     position: fixed;
-    top: 20px;
+    top: 10px;
     right: 20px;
     background-color: #008bf8;
     color: white;
@@ -645,6 +654,72 @@ body {
     display: none;
     /* visibile solo su mobile */
 }
+
+
+/* #region Badge carrello */
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--badgeColor);
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Animazione pallina volante*/
+.flying-ball {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    background-color: #ff4444;
+    border: 2px solid white;
+    border-radius: 50%;
+    z-index: 10000;
+    pointer-events: none;
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+    animation: flyToCart 0.75s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+    opacity: 1;
+}
+
+@keyframes flyToCart {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    40% {
+        transform: translate(
+            calc(var(--move-x) * 0.8), 
+            calc(var(--move-y) * 0.8)
+        ) scale(0.9);
+    }
+    100% {
+        transform: translate(var(--end-x), var(--end-y)) scale(0.5);
+        opacity: 0.8;
+    }
+}
+
+/* body {
+    contain: paint;
+}    */
+
+@keyframes cartBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.toggle-cart-btn.bounce {
+    animation: cartBounce 0.3s ease;
+}
+
+/* #endregion Badge carrello */
 
 
 
@@ -673,7 +748,7 @@ body {
 @media (max-width: 768px) {
     .toggle-cart-btn {
         display: block;
-        margin-top: 5vh;
+        margin-top: 1vh;
     }
 
     .sidebar {
@@ -1139,3 +1214,7 @@ body {
 .card-button {
     pointer-events: auto;
 }
+
+
+
+

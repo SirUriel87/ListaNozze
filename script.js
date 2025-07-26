@@ -280,6 +280,12 @@ for (const city in experiences) {
     const button = card.querySelector('.card-button');
     button.addEventListener('click', (e) => {
         e.preventDefault();
+
+        // Animazione solo se stiamo aggiungendo (non rimuovendo)
+        if (!selectedActivities.some(item => item.city === city)) {
+            animateToCart(button);
+        }
+
         addToItinerary(city, data.title, data.amount);
 
         // Feedback visivo
@@ -372,7 +378,25 @@ function updateSidebar() {
 
     totalAmountElement.textContent = total;
     checkoutBtn.style.display = selectedActivities.length ? 'block' : 'none';
+
+    // Aggiorna il badge
+    updateCartBadge();
 }
+
+
+// funzione per aggiornare il badge
+function updateCartBadge() {
+    const badge = document.getElementById('cart-badge');
+    const count = selectedActivities.length;
+    
+    if (count > 0) {
+        badge.textContent = count;
+        badge.style.display = 'flex';
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
 
 function removeActivity(index) {
     selectedActivities.splice(index, 1);
@@ -549,4 +573,49 @@ function refreshSendButton(){
 // #endregion modal popup pagamento
 
 
+// #region animazione pallina del badge carrello
+
+function animateToCart(startElement) {
+    // Posizione iniziale (il bottone cliccato)
+    const startRect = startElement.getBoundingClientRect();
+    const startX = startRect.left + startRect.width / 2;
+    const startY = startRect.top + startRect.height / 2;
+    
+    // Posizione finale (il pulsante del carrello)
+    const cartBtn = document.getElementById('toggle-cart');
+    let endRect = selectedActivitiesContainer.getBoundingClientRect();
+    if (isMobile){
+         endRect = cartBtn.getBoundingClientRect();
+    }
+    
+    const endX = endRect.left + (endRect.width * 0.7);
+    const endY = endRect.top + (endRect.height * 0.3);
+
+    // Crea la pallina
+    const ball = document.createElement('div');
+    ball.className = 'flying-ball';
+    ball.style.left = `${startX}px`;
+    ball.style.top = `${startY}px`;
+    // ball.style.backgroundColor = startElement.style.backgroundColor;
+    
+    // Calcola la traiettoria arcuata
+    const moveX = endX - startX;
+    const moveY = endY - startY;
+    ball.style.setProperty('--move-x', `${moveX * 0.6}px`);
+    ball.style.setProperty('--move-y', `${moveY * 0.6 - 50}px`);
+    ball.style.setProperty('--end-x', `${moveX}px`);
+    ball.style.setProperty('--end-y', `${moveY}px`);
+    
+    // Aggiungi al documento
+    document.body.appendChild(ball);
+    
+    ball.addEventListener('animationend', () => {
+        ball.remove();
+        // Effetto di rimbalzo sul carrello
+        cartBtn.classList.add('bounce');
+        setTimeout(() => cartBtn.classList.remove('bounce'), 300);
+    });
+}
+
+// #endregion animazione pallina del badge carrello
 
