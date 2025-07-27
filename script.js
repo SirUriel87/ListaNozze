@@ -1,5 +1,6 @@
-const staticLink = "https://paypal.me/diprimaale?country.x=IT&locale.x=it_IT";
+// const staticLink = "https://paypal.me/diprimaale?country.x=IT&locale.x=it_IT";
 // const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
+const staticLink = "https://www.paypal.com/myaccount/transfer/homepage/preview";
 const isMobile = window.innerWidth <= 768;
 const offsetCoefficient = (isMobile ? 300 : 400);
 var messageSent = false;
@@ -491,6 +492,12 @@ function BuildAndShowPaymentPopup(){
     
     // Mostra il modal
     document.getElementById('payment-modal').style.display = 'block';
+
+    // Resetta sempre a Bonifico Bancario quando si apre il modal
+    // document.querySelector('.payment-method[data-method="bank"]').classList.add('active');
+    // document.querySelector('.payment-method[data-method="paypal"]').classList.remove('active');
+    // document.getElementById('bank-details').style.display = 'block';
+    // document.getElementById('paypal-details').style.display = 'none';
 }
 
 // Funzione per copiare IBAN
@@ -569,6 +576,38 @@ function refreshSendButton(){
     
 }
 
+
+// Gestione cambio metodo di pagamento
+document.querySelectorAll('.payment-method').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Rimuovi active da tutti i bottoni
+        document.querySelectorAll('.payment-method').forEach(b => {
+            b.classList.remove('active');
+        });
+        
+        // Aggiungi active al bottone cliccato
+        this.classList.add('active');
+        
+        // Nascondi tutti i dettagli
+        document.querySelectorAll('.payment-details').forEach(d => {
+            d.style.display = 'none';
+        });
+        
+        // Mostra solo i dettagli selezionati
+        const method = this.dataset.method;
+        document.getElementById(`${method}-details`).style.display = 'block';
+    });
+});
+
+// Gestione click su PayPal
+document.getElementById('paypal-button').addEventListener('click', function() {
+    const totalAmount = document.getElementById('modal-total').textContent;
+    const amount = parseFloat(totalAmount.replace('€', ''));
+    const causale = document.getElementById('causale-input').value;
+    
+    // Reindirizza a PayPal con i parametri necessari
+    window.location.href = staticLink;
+});
 
 // #endregion modal popup pagamento
 
