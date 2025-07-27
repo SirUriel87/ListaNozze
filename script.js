@@ -455,7 +455,6 @@ btnGo.addEventListener("click", () => {
 
 
 // #region modal popup pagamento
-
 function BuildAndShowPaymentPopup(){
     if (selectedActivities.length === 0) return;
 
@@ -485,20 +484,28 @@ function BuildAndShowPaymentPopup(){
         causaleInput.value += "..."
     }
 
+    // Mostra solo il primo step
+    document.getElementById('message-step').style.display = 'block';
+    document.getElementById('payment-step').style.display = 'none';
+    document.querySelector('.modal-header h3').textContent = 'Grazie per il tuo regalo!';
+
     refreshSendButton();
 
     // Aggiorna il totale
-    document.getElementById('modal-total').textContent = `€${totalAmount}`;
+    refreshTotalAmount(totalAmount);
     
     // Mostra il modal
     document.getElementById('payment-modal').style.display = 'block';
-
-    // Resetta sempre a Bonifico Bancario quando si apre il modal
-    // document.querySelector('.payment-method[data-method="bank"]').classList.add('active');
-    // document.querySelector('.payment-method[data-method="paypal"]').classList.remove('active');
-    // document.getElementById('bank-details').style.display = 'block';
-    // document.getElementById('paypal-details').style.display = 'none';
 }
+
+
+// funzione per aggiornare il totale
+function refreshTotalAmount(tot){
+    document.getElementById('modal-total').textContent = `€${tot}`;
+    document.getElementById('paypal-total-amount').textContent = `€${tot}`;
+    document.getElementById('bonifico-total-amount').textContent = `€${tot}`;
+}
+
 
 // Funzione per copiare IBAN
 function copyToClipboard(elementId) {
@@ -544,24 +551,36 @@ document.getElementById('payment-confirmation-form')
     statusEl.className = 'form-status';
 
     try {
-        await emailjs.send("service_66f9j32", "template_fqq9f8a", {
-            from_name: guestName,
-            message: `Esperienze selezionate:\n- ${selectedItems}\n\nTotale: ${totalAmount}\n\nMessaggio: ${message}`,
-        });
-
-        statusEl.className = 'form-status success';
-        statusEl.innerHTML = 'Messaggio inviato con successo! Grazie ❤️';
-        messageSent = true;
-        refreshSendButton();
-        form.reset();
+        // TODO: scommenta qui quando hai finito di debuggare
+        // await emailjs.send("service_66f9j32", "template_fqq9f8a", {
+        //     from_name: guestName,
+        //     message: `Esperienze selezionate:\n- ${selectedItems}\n\nTotale: ${totalAmount}\n\nMessaggio: ${message}`,
+        // });
+        
+        // Nascondi lo step del messaggio e mostra lo step di pagamento
+        document.getElementById('message-step').style.display = 'none';
+        document.getElementById('payment-step').style.display = 'block';
+        
+        // Aggiorna il titolo del modal
+        document.querySelector('.modal-header h3').textContent = 'Completa il pagamento';
+        
     } catch (error) {
         statusEl.className = 'form-status error';
-        statusEl.innerHTML = 'Errore nell\'invio...';
+        statusEl.innerHTML = 'Errore nell\'invio. Riprova più tardi.';
     } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Invia conferma';
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Invia messaggio e procedi al pagamento';
     }
 });
+
+// // Aggiungi gestione del pulsante "Torna al messaggio"
+// document.getElementById('btn-back-to-message').addEventListener('click', function() {
+//     document.getElementById('payment-step').style.display = 'none';
+//     document.getElementById('message-step').style.display = 'block';
+//     document.querySelector('.modal-header h3').textContent = 'Grazie per il tuo regalo!';
+// });
+
+
 
 
 function refreshSendButton(){
