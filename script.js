@@ -624,10 +624,7 @@ function animateToCart(startElement) {
 
 
 
-
-
-
-// Gestione dell'altezza su mobile
+// #region Gestione dell'altezza su mobile
 function adjustMobileHeight() {
     if (isMobile) {
         const vh = window.innerHeight * 0.01;
@@ -638,7 +635,8 @@ function adjustMobileHeight() {
     }
 }
 
-// Esegui all'avvio e al resize
 window.addEventListener('load', adjustMobileHeight);
 window.addEventListener('resize', adjustMobileHeight);
 window.addEventListener('orientationchange', adjustMobileHeight);
+
+// #endregion Gestione dell'altezza su mobile
