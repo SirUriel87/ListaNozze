@@ -596,7 +596,7 @@ function animateToCart(startElement) {
     ball.className = 'flying-ball';
     ball.style.left = `${startX}px`;
     ball.style.top = `${startY}px`;
-    // ball.style.backgroundColor = startElement.style.backgroundColor;
+    ball.style.backgroundColor = startElement.style.backgroundColor;
     
     // Calcola la traiettoria arcuata
     const moveX = endX - startX;
@@ -619,3 +619,26 @@ function animateToCart(startElement) {
 
 // #endregion animazione pallina del badge carrello
 
+
+
+
+
+
+
+
+
+// Gestione dell'altezza su mobile
+function adjustMobileHeight() {
+    if (isMobile) {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        
+        const container = document.querySelector('.container');
+        container.style.height = window.innerHeight + 'px';
+    }
+}
+
+// Esegui all'avvio e al resize
+window.addEventListener('load', adjustMobileHeight);
+window.addEventListener('resize', adjustMobileHeight);
+window.addEventListener('orientationchange', adjustMobileHeight);
