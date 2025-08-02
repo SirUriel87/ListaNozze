@@ -54,7 +54,7 @@ const experiences = [
         amount: 50,
         image: "img/rilakkuma-sabo.jpg",
         city: "Miyajima",
-        position: [34.30940248285368, 132.31291859843256]
+        position: [34.29907765261994, 132.32192327059997]
     },
      {
         title: "Treno Hiroshima-Himeji",
@@ -236,6 +236,26 @@ const totalAmountElement = document.getElementById('total-amount');
 const selectedActivitiesContainer = document.getElementById('selected-activities');
 const checkoutBtn = document.getElementById('checkout-btn');
 
+
+function cardClick(button, city, card){
+    // Animazione solo se stiamo aggiungendo (non rimuovendo)
+    if (!selectedActivities.some(item => item.city === city)) {
+        animateToCart(button);
+    }
+
+    addToItinerary(city, data.title, data.amount);
+
+    // Feedback visivo
+    button.classList.toggle('selected');
+    card.classList.toggle('selected');
+
+    // Piccolo timeout per garantire che l'animazione funzioni
+    setTimeout(() => {
+        button.classList.toggle('show-icon');
+    }, 5);
+}
+
+
 // #region Loop di creazione delle cards
 for (const city in experiences) {
     const data = experiences[city];
@@ -257,25 +277,15 @@ for (const city in experiences) {
 
     // Aggiungi event listener per il click
     const button = card.querySelector('.card-button');
+    button.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+
+            cardClick(button, city, card);
+        });
     button.addEventListener('click', (e) => {
         e.preventDefault();
 
-        // Animazione solo se stiamo aggiungendo (non rimuovendo)
-        if (!selectedActivities.some(item => item.city === city)) {
-            animateToCart(button);
-        }
-
-        addToItinerary(city, data.title, data.amount);
-
-        // Feedback visivo
-        button.classList.toggle('selected');
-        card.classList.toggle('selected');
-
-        // Piccolo timeout per garantire che l'animazione funzioni
-        setTimeout(() => {
-            button.classList.toggle('show-icon');
-        }, 5);
-
+        cardClick(button, city, card);
     });
 
     card.addEventListener("mouseenter", () => {
@@ -308,9 +318,9 @@ for (const city in experiences) {
         iconUrl: iconUrl,
         iconSize: [45, 61],
         iconAnchor: [22.5, 61],
-        popupAnchor: [0, -40]
+        popupAnchor: [0, -10]
     });
-    debugger;
+    
     data.marker = L.marker(data.position, { icon: myIcon }).addTo(map);
     data.marker.bindPopup(BuildPopupContent(data.title, data.image, data.description))
 }

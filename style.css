@@ -48,6 +48,10 @@ body {
     overscroll-behavior: contain; /* Evita l'effetto rimbalzo */
     -webkit-overflow-scrolling: touch; /* Scroll fluido su mobile */
     max-height: 100vh; /* Altezza massima viewport */
+
+    /* modifiche per compatibilita' iOS */
+    -webkit-overflow-scrolling: touch; /* Scroll fluido iOS */
+    overscroll-behavior-y: contain; /* Previene l'effetto rimbalzo */
 }
 
 /* #region stili per il content */
@@ -56,6 +60,7 @@ body {
   max-width: 600px;
   padding: 0.8rem;
   text-align: center;
+  overflow: visible; /* Importante */
 }
 
 .welcome-title {
@@ -874,8 +879,16 @@ body {
         display: block; /* Cambia da flex a block */  
         height: 100vh; /* Occupa tutto lo schermo */
         position: fixed;
+
+        /* modifica per compatibilita' iOS */
+        background-attachment: scroll; /* Modifica da fixed a scroll */
     }
     
+    .welcome-content {
+        padding: 20px;
+        margin-top: env(safe-area-inset-top); /* Considera l'area sicura iOS */
+        margin-bottom: env(safe-area-inset-bottom);
+    }
 }
 
 
