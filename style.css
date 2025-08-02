@@ -36,7 +36,7 @@ body {
 
     /* immagine sfondo */
     background: 
-        linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8)),
+        linear-gradient(rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.8)),
         url('img/welcome.jpg') center/cover no-repeat;
     /* background-image: url('img/welcome.jpg'); */
     /* background-size: cover;       
@@ -65,7 +65,7 @@ body {
 }
 
 .welcome-subtitle {
-  color: var(--highlightActiveColor);
+  color: var(--twohunColor);
   font-size: 1.5rem;
   margin-top: 0;
 }
@@ -81,7 +81,7 @@ body {
   border-radius: 15px;
   padding: 0.5rem;
   margin: 0.5rem 0;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
 
 .section-title {
@@ -876,12 +876,6 @@ body {
         position: fixed;
     }
 
-    .welcome-title, .welcome-subtitle {
-        text-shadow: 
-            1px 1px 3px rgba(0,0,0,0.3), /* Ombra primaria */
-            0 0 5px rgba(255,255,255,0.9); /* Alone bianco per contrasto */
-    }
-    
 }
 
 
@@ -1306,5 +1300,11 @@ body {
 }
 
 
+
+.welcome-title, .welcome-subtitle, .instructions-list, .section-text {
+    text-shadow: 
+        1px 1px 3px rgba(255, 255, 255, 0.3), /* Ombra primaria */
+        0 0 5px rgba(255,255,255,0.9); /* Alone bianco per contrasto */
+}
 
 
