@@ -874,9 +874,7 @@ body {
     }
     
     .welcome-content {
-        padding: 20px;
-        padding-top: max(20px, env(safe-area-inset-top));
-        padding-bottom: max(20px, env(safe-area-inset-bottom));
+        padding: 4rem 20px;
     }
 }
 
