@@ -4,6 +4,8 @@ const staticLink = "https://www.paypal.com/myaccount/transfer/homepage/preview";
 const isMobile = window.innerWidth <= 768;
 const offsetCoefficient = (isMobile ? 300 : 400);
 var messageSent = false;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+             (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
 // test di inserimento
 
@@ -735,4 +737,12 @@ function getColorByAmount(amount) {
     else if (amount <= 300) return "var(--threehunColor)";
     else if (amount <= 500) return "var(--fivehunColor)";
     else return "var(--highlightActiveColor)";
+}
+
+
+
+
+if (isIOS) {
+    const welcomeContent = document.querySelector('.welcome-content');
+    welcomeContent.style.padding = "14rem 20px";
 }
