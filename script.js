@@ -78,7 +78,7 @@ const experiences = [
         amount: 10,
         image: "img/fukusaki-yokai.jpg",
         city: "Fukusaki",
-        position: [34.95413939702594, 134.75666483282498]
+        position: [34.9608896547387, 134.75083395372909]
     },
      {
         title: "Soggiorno a Nipponia",
@@ -187,7 +187,6 @@ const container = document.getElementById("cards-container");
 
 
 
-
 //#region scrolling javascript
 const slider = document.querySelector('.cards-container');
 
@@ -242,28 +241,7 @@ for (const city in experiences) {
     const data = experiences[city];
 
     // Initializza colore card
-    let expColor = ""
-    if (data.amount <= 10){
-        expColor = "var(--tenColor)"
-    }
-    else if(data.amount <= 20){
-        expColor = "var(--twentyColor)"
-    }
-    else if(data.amount <= 50){
-        expColor = "var(--fiftyColor)"
-    }
-    else if(data.amount <= 100){
-        expColor = "var(--onehunColor)"
-    }
-    else if(data.amount <= 200){
-        expColor = "var(--twohunColor)"
-    }
-    else if(data.amount <= 300){
-        expColor = "var(--threehunColor)"
-    }
-    else if(data.amount <= 500){
-        expColor = "var(--fivehunColor)"
-    }
+    let expColor = getColorByAmount(data.amount);
 
     const card = document.createElement("div");
     card.className = "card";
@@ -325,7 +303,15 @@ for (const city in experiences) {
     container.appendChild(card);
 
     // Aggiungi marker sulla mappa per ogni experience
-    data.marker = L.marker(data.position).addTo(map);
+    const iconUrl = `img/marker_${data.amount}.png`;
+    var myIcon = L.icon({
+        iconUrl: iconUrl,
+        iconSize: [45, 61],
+        iconAnchor: [22.5, 61],
+        popupAnchor: [0, -40]
+    });
+    debugger;
+    data.marker = L.marker(data.position, { icon: myIcon }).addTo(map);
     data.marker.bindPopup(BuildPopupContent(data.title, data.image, data.description))
 }
 
@@ -698,3 +684,16 @@ window.addEventListener('resize', adjustMobileHeight);
 window.addEventListener('orientationchange', adjustMobileHeight);
 
 // #endregion Gestione dell'altezza su mobile
+
+
+
+function getColorByAmount(amount) {
+    if (amount <= 10) return "var(--tenColor)";
+    else if (amount <= 20) return "var(--twentyColor)";
+    else if (amount <= 50) return "var(--fiftyColor)";
+    else if (amount <= 100) return "var(--onehunColor)";
+    else if (amount <= 200) return "var(--twohunColor)";
+    else if (amount <= 300) return "var(--threehunColor)";
+    else if (amount <= 500) return "var(--fivehunColor)";
+    else return "var(--highlightActiveColor)";
+}
