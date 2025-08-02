@@ -237,7 +237,7 @@ const selectedActivitiesContainer = document.getElementById('selected-activities
 const checkoutBtn = document.getElementById('checkout-btn');
 
 
-function cardClick(button, city, card){
+function cardClick(button, city, card, data){
     // Animazione solo se stiamo aggiungendo (non rimuovendo)
     if (!selectedActivities.some(item => item.city === city)) {
         animateToCart(button);
@@ -277,16 +277,18 @@ for (const city in experiences) {
 
     // Aggiungi event listener per il click
     const button = card.querySelector('.card-button');
-    button.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-
-            cardClick(button, city, card);
-        });
+    
     button.addEventListener('click', (e) => {
         e.preventDefault();
 
-        cardClick(button, city, card);
+        cardClick(button, city, card, data);
     });
+    
+    button.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+
+            cardClick(button, city, card, data);
+        });
 
     card.addEventListener("mouseenter", () => {
         if (!isDragging){
@@ -445,6 +447,33 @@ btnGo.addEventListener("click", () => {
     }, 500); // Match con la durata della transizione
 
 })
+
+// Correzione per lo scroll su iOS
+function fixIOSScroll() {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        const welcomePage = document.getElementById('welcomePage');
+        
+        // Forza il ridimensionamento del contenuto
+        welcomePage.style.height = '1px';
+        welcomePage.style.height = window.innerHeight + 'px';
+        
+        // Abilita il scroll momentum su iOS
+        welcomePage.style.webkitOverflowScrolling = 'touch';
+        
+        // Aggiungi un piccolo timeout per assicurarsi che le modifiche abbiano effetto
+        setTimeout(() => {
+            welcomePage.scrollTop = 1;
+            welcomePage.scrollTop = 0;
+        }, 100);
+    }
+}
+
+// Chiama la funzione al caricamento e al ridimensionamento
+window.addEventListener('load', fixIOSScroll);
+window.addEventListener('resize', fixIOSScroll);
+
+// Chiamala anche quando clicchi il bottone per assicurarti che funzioni
+btnGo.addEventListener('click', fixIOSScroll);
 
 // #endregion welcome page
 

@@ -867,27 +867,19 @@ body {
     }
 
 
-    .welcome{
-        background-image: url('img/welcome.jpg'); 
-        background-size: cover;       
-        background-position: center;  
-        background-repeat: no-repeat; 
-        background-attachment: fixed;
-        -webkit-overflow-scrolling: touch; /* Scroll fluido iOS */
-        overflow-y: auto;
-        padding: 0;
-        display: block; /* Cambia da flex a block */  
-        height: 100vh; /* Occupa tutto lo schermo */
-        position: fixed;
-
-        /* modifica per compatibilita' iOS */
-        background-attachment: scroll; /* Modifica da fixed a scroll */
+    .welcome {
+        position: absolute; /* Cambia da fixed ad absolute */
+        -webkit-overflow-scrolling: touch;
+        overflow-y: scroll;
+        height: auto;
+        min-height: 100vh;
+        padding-bottom: env(safe-area-inset-bottom);
     }
     
     .welcome-content {
         padding: 20px;
-        margin-top: env(safe-area-inset-top); /* Considera l'area sicura iOS */
-        margin-bottom: env(safe-area-inset-bottom);
+        padding-top: max(20px, env(safe-area-inset-top));
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
     }
 }
 
