@@ -2,15 +2,22 @@
 // const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
 const staticLink = "https://www.paypal.com/myaccount/transfer/homepage/preview";
 const isMobile = window.innerWidth <= 768;
-const offsetCoefficient = (isMobile ? 300 : 400);
+const offsetCoefficient = (isMobile ? 80 : 130);
 var messageSent = false;
+const popupMaxHeight = 37; //vh
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
 let tapTimer;
 let isScrolling = false;
 
-// test di inserimento
+
+
+function vhToPixels(vh) {
+    return (window.innerHeight * vh) / 100;
+}
+
+
 
 const experiences = [
     {
@@ -155,7 +162,7 @@ const experiences = [
 experiences.sort((x,y) => (x.amount - y.amount));
 
 function BuildPopupContent(title, image, description){
-    return '<div style="max-height: 37vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;">'+
+    return '<div style="max-height: '+ popupMaxHeight +'vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;">'+
     '<h3 style="margin:0 0 8px 0;color:#008bf8">' + title + '</h3>'+
     '<img src="'+ image +'" class="popup-image" />'+
     '<p style="margin:4px 0;font-size:1.1em">'+ description +'</p></div>'
@@ -317,10 +324,15 @@ for (const city in experiences) {
             data.marker.openPopup();
             
             let fixedPos = [...data.position];
-            // Aggiungi offset verticale per migliore visualizzazione
+            // ottieni altezza del card container per ottimizzare la visualizzazione
+            const containerHeight = document.querySelector('.cards-container').offsetHeight;
+            const containerAndPopupHeight = containerHeight + vhToPixels(popupMaxHeight)
             let viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-            let offset = (viewportHeight * 5 / 100);
-            offset = offset / offsetCoefficient; // Dividi per un coefficiente in modo da trasformare i px in unita di misura della mappa
+            const markerPopupOuterPadding = (viewportHeight - containerAndPopupHeight)/2;
+
+            // Aggiungi offset verticale per migliore visualizzazione
+            let offset = containerHeight - (viewportHeight / 2); //(viewportHeight * 5 / 100);
+            offset = markerPopupOuterPadding / offsetCoefficient; // Dividi per un coefficiente in modo da trasformare i px in unita di misura della mappa
             fixedPos[0] = fixedPos[0] - offset;
             
             map.flyTo(fixedPos, 9, {
