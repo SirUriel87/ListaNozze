@@ -470,6 +470,7 @@ toggleBtn.addEventListener("click", () => {
 
 
 
+
 // #region welcome page
 const btnGo = document.getElementById('btnGo');
 
@@ -699,10 +700,7 @@ function animateToCart(startElement) {
     
     // Posizione finale (il pulsante del carrello)
     const cartBtn = document.getElementById('toggle-cart');
-    let endRect = selectedActivitiesContainer.getBoundingClientRect();
-    if (isMobile){
-         endRect = cartBtn.getBoundingClientRect();
-    }
+    endRect = cartBtn.getBoundingClientRect();
     
     const endX = endRect.left + (endRect.width * 0.7);
     const endY = endRect.top + (endRect.height * 0.3);

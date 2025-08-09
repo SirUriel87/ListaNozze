@@ -179,19 +179,21 @@ body {
     position: fixed;
     right: 20px;
     top: 20px;
-    /* Fissa la distanza dal top */
-    width: 250px;
+    width: 450px;
+    max-width: 100%;
+    max-height: 90dvh;
+    max-height: 90vh;
+    /* massimo 90% della viewport */
     background: white;
-    padding: 20px;
+    transform: translateX(110%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
     border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-    max-height: calc(100dvh - 40px);
-    max-height: calc(100vh - 40px);
-    /* Altezza massima basata sulla viewport */
+    padding: 20px;
+    box-sizing: border-box;
     overflow-y: auto;
-    transform: translateX(0);
-    /* default per desktop */
+    height: auto;
+    /* adattabile al contenuto */
 }
 
 .selected-activities {
@@ -662,8 +664,12 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     font-size: 16px;
     z-index: 1001;
-    display: none;
-    /* visibile solo su mobile */
+    display: block;
+    margin-top: 3dvh;
+    margin-top: 3vh;
+    cursor: pointer;
+    /* margin-right: 3vh;
+    margin-right: 3dvh; */
 }
 
 
@@ -754,38 +760,23 @@ body {
     border-radius: 4px;
 }
 
+.sidebar.open {
+    transform: translateX(0);
+}
+
 
 /* Versione Mobile */
 @media (max-width: 768px) {
     .toggle-cart-btn {
-        display: block;
         margin-top: 1dvh;
         margin-top: 1vh;
     }
 
     .sidebar {
-        position: fixed;
         right: 0;
         top: 0;
-        max-width: 100%;
-        width: 100%;
-        max-height: 90dvh;
-        max-height: 90vh;
-        /* massimo 90% della viewport */
-        background: white;
         transform: translateX(100%);
-        transition: transform 0.3s ease-in-out;
-        z-index: 1000;
-        border-radius: 15px 0 0 15px;
-        padding: 20px;
-        box-sizing: border-box;
-        overflow-y: auto;
-        height: auto;
-        /* adattabile al contenuto */
-    }
-
-    .sidebar.open {
-        transform: translateX(0);
+        width: 100%;
     }
 
     .card-button {
@@ -1323,3 +1314,19 @@ body {
 }
 
 
+/* Stili per le frecce del carrello */
+.toggle-cart-btn .left-arrow {
+  display: inline-block;
+}
+
+.toggle-cart-btn .right-arrow {
+  display: none;
+}
+
+.sidebar.open ~ .toggle-cart-btn .left-arrow {
+  display: none;
+}
+
+.sidebar.open ~ .toggle-cart-btn .right-arrow {
+  display: inline-block;
+}
