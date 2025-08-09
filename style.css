@@ -46,6 +46,7 @@ body {
     overflow-y: auto; /* Abilita lo scroll verticale */
     overscroll-behavior: contain; /* Evita l'effetto rimbalzo */
     -webkit-overflow-scrolling: touch; /* Scroll fluido su mobile */
+    min-height: 100dvh;
     min-height: 100vh;
 
     /* modifiche per compatibilita' iOS */
@@ -156,6 +157,7 @@ body {
     pointer-events: none;
     display: flex;
     flex-direction: column;
+    min-height: 100dvh;
     min-height: 100vh;
     padding-bottom: env(safe-area-inset-bottom); /* Per dispositivi con notch */
 }
@@ -165,6 +167,7 @@ body {
     top: 0;
     left: 0;
     width: 100vw;
+    height: 100dvh;
     height: 100vh;
     z-index: 0; /* Sotto tutti gli altri elementi */
  }
@@ -183,6 +186,7 @@ body {
     border-radius: 15px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     z-index: 999;
+    max-height: calc(100dvh - 40px);
     max-height: calc(100vh - 40px);
     /* Altezza massima basata sulla viewport */
     overflow-y: auto;
@@ -463,6 +467,7 @@ body {
     overflow-y: auto; /* Scroll verticale se necessario */
     overflow-x: hidden; /* Disabilita lo scroll orizzontale */
     gap: 1.5rem;
+    margin-top: 40dvh; /* Inizia a circa 50% della viewport */
     margin-top: 40vh; /* Inizia a circa 50% della viewport */
     scroll-snap-type: y mandatory; /* Rimuovi lo snap orizzontale */
     -webkit-overflow-scrolling: touch;
@@ -473,6 +478,7 @@ body {
     position: relative;
     justify-items: center;
     justify-content: center; /* Centra le card orizzontalmente */
+    max-height: 55dvh; /* Altezza massima */
     max-height: 55vh; /* Altezza massima */
     height: auto;
     flex: 1;
@@ -753,6 +759,7 @@ body {
 @media (max-width: 768px) {
     .toggle-cart-btn {
         display: block;
+        margin-top: 1dvh;
         margin-top: 1vh;
     }
 
@@ -762,6 +769,7 @@ body {
         top: 0;
         max-width: 100%;
         width: 100%;
+        max-height: 90dvh;
         max-height: 90vh;
         /* massimo 90% della viewport */
         background: white;
@@ -813,7 +821,9 @@ body {
         overflow-y: auto; /* Abilita scroll verticale */
         gap: 0.3rem;
         padding: 0 1rem;
+        margin-top: 40dvh;
         margin-top: 40vh;
+        height: 60dvh;
         height: 60vh;
         justify-items: baseline;
 
@@ -827,6 +837,7 @@ body {
 
         display: grid;
         grid-auto-rows: minmax(auto, auto);
+        max-height: calc(var(--vh, 0dvh) * 100 - 40dvh) !important;
         max-height: calc(var(--vh, 0vh) * 100 - 40vh) !important;
     }
 
@@ -869,6 +880,7 @@ body {
         -webkit-overflow-scrolling: touch;
         overflow-y: scroll;
         height: auto;
+        min-height: 100dvh;
         min-height: 100vh;
         padding-bottom: env(safe-area-inset-bottom);
     }
@@ -909,6 +921,7 @@ body {
     position: relative; 
     left: 0; 
     transform: none; 
+    max-height: 90dvh;
     max-height: 90vh;
     overflow-y: auto;
 }
@@ -939,6 +952,7 @@ body {
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 20px;
+    max-height: 30dvh;
     max-height: 30vh;
     overflow-y: auto;
 }
@@ -1090,6 +1104,7 @@ body {
     }
     
     .selected-experiences {
+        max-height: 25dvh; /* Meno spazio per la lista su mobile */
         max-height: 25vh; /* Meno spazio per la lista su mobile */
     }
     

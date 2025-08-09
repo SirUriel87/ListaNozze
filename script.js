@@ -609,11 +609,11 @@ document.getElementById('payment-confirmation-form')
     statusEl.className = 'form-status';
 
     try {
-        // TODO: scommenta qui quando hai finito di debuggare
-        // await emailjs.send("service_66f9j32", "template_fqq9f8a", {
-        //     from_name: guestName,
-        //     message: `Esperienze selezionate:\n- ${selectedItems}\n\nTotale: ${totalAmount}\n\nMessaggio: ${message}`,
-        // });
+        
+        await emailjs.send("service_66f9j32", "template_fqq9f8a", {
+            from_name: guestName,
+            message: `Esperienze selezionate:\n- ${selectedItems}\n\nTotale: ${totalAmount}\n\nMessaggio: ${message}`,
+        });
         
         // Nascondi lo step del messaggio e mostra lo step di pagamento
         document.getElementById('message-step').style.display = 'none';
