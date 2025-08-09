@@ -7,6 +7,9 @@ var messageSent = false;
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
+let tapTimer;
+let isScrolling = false;
+
 // test di inserimento
 
 const experiences = [
@@ -286,11 +289,27 @@ for (const city in experiences) {
         cardClick(button, city, card, data);
     });
     
-    button.addEventListener('touchstart', (e) => {
-            e.preventDefault();
 
-            cardClick(button, city, card, data);
-        });
+    button.addEventListener('touchstart', (e) => {
+        tapTimer = setTimeout(() => {
+            if (!isScrolling) {
+                // Esegui l'azione solo se non c'è stato scroll
+                e.preventDefault();
+
+                cardClick(button, city, card, data);
+            }
+        }, 200); // Ritardo di 200ms
+    }, {passive: true});
+
+    button.addEventListener('touchmove', () => {
+        isScrolling = true;
+        clearTimeout(tapTimer);
+    }, {passive: true});
+
+    button.addEventListener('touchend', () => {
+        clearTimeout(tapTimer);
+        isScrolling = false;
+    }, {passive: true});
 
     card.addEventListener("mouseenter", () => {
         if (!isDragging){
