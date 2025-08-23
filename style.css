@@ -1345,3 +1345,40 @@ html, body {
     height: 100%;
     overflow: hidden;
 }
+
+
+/* #region version style */
+.version-info {
+    position: fixed;
+    bottom: 12px;
+    left: 12px;
+    font-size: 11px;
+    color: #666;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 4px 8px;
+    border-radius: 8px;
+    z-index: 1000;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    pointer-events: none;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Nascondi su mobile se necessario */
+@media (max-width: 768px) {
+    .version-info {
+        bottom: 8px;
+        left: 8px;
+        font-size: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Opzionale: nascondi completamente su mobile */
+    /* .version-info {
+        display: none;
+    } */
+}
+
+
+/* version style */
