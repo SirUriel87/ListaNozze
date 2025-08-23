@@ -160,6 +160,12 @@ body {
     min-height: 100dvh;
     min-height: 100vh;
     padding-bottom: env(safe-area-inset-bottom); /* Per dispositivi con notch */
+
+    height: 100vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    padding-bottom: 2.2rem;
 }
 
 
@@ -828,8 +834,10 @@ body {
 
         display: grid;
         grid-auto-rows: minmax(auto, auto);
-        max-height: calc(var(--vh, 0dvh) * 100 - 40dvh) !important;
-        max-height: calc(var(--vh, 0vh) * 100 - 40vh) !important;
+        max-height: calc(var(--vh, 0dvh) * 100 - 40dvh - 2.2rem) !important;
+        max-height: calc(var(--vh, 0vh) * 100 - 40vh - 2.2rem) !important;
+
+        padding-bottom: 2.2rem;
     }
 
 
@@ -1329,4 +1337,11 @@ body {
 
 .sidebar.open ~ .toggle-cart-btn .right-arrow {
   display: inline-block;
+}
+
+html, body {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: auto;
+    height: 100%;
+    overflow: hidden;
 }
