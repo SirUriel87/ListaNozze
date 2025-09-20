@@ -515,7 +515,7 @@ btnGo.addEventListener('click', fixIOSScroll);
 
 // #region modal popup pagamento
 function BuildAndShowPaymentPopup(){
-    if (selectedActivities.length === 0) return;
+    // if (selectedActivities.length === 0) return;
 
     const totalAmount = selectedActivities.reduce((sum, item) => sum + parseInt(item.amount), 0);
     
@@ -581,8 +581,13 @@ function copyToClipboard(elementId) {
 }
 
 // Chiudi modal
-document.querySelector('.close-modal').addEventListener('click', () => {
+document.getElementById('close-modal-btn').addEventListener('click', () => {
     document.getElementById('payment-modal').style.display = 'none';
+});
+
+// Chiudi modal
+document.getElementById('close-free-modal-btn').addEventListener('click', () => {
+    document.getElementById('free-payment-modal').style.display = 'none';
 });
 
 window.addEventListener('click', (event) => {
@@ -616,12 +621,7 @@ document.getElementById('payment-confirmation-form')
             message: `Esperienze selezionate:\n- ${selectedItems}\n\nTotale: ${totalAmount}\n\nMessaggio: ${message}`,
         });
         
-        // Nascondi lo step del messaggio e mostra lo step di pagamento
-        document.getElementById('message-step').style.display = 'none';
-        document.getElementById('payment-step').style.display = 'block';
-        
-        // Aggiorna il titolo del modal
-        document.querySelector('.modal-header h3').textContent = 'Completa il pagamento';
+        showPaymentStep();
         
     } catch (error) {
         statusEl.className = 'form-status error';
@@ -640,6 +640,14 @@ document.getElementById('payment-confirmation-form')
 // });
 
 
+function showPaymentStep(){
+    // Nascondi lo step del messaggio e mostra lo step di pagamento
+    document.getElementById('message-step').style.display = 'none';
+    document.getElementById('payment-step').style.display = 'block';
+    
+    // Aggiorna il titolo del modal
+    document.querySelector('.modal-header h3').textContent = 'Completa il pagamento';
+}
 
 
 function refreshSendButton(){
@@ -679,10 +687,12 @@ document.querySelectorAll('.payment-method').forEach(btn => {
 
 // Gestione click su PayPal
 document.getElementById('paypal-button').addEventListener('click', function() {
-    const totalAmount = document.getElementById('modal-total').textContent;
-    const amount = parseFloat(totalAmount.replace('€', ''));
-    const causale = document.getElementById('causale-input').value;
-    
+    // Reindirizza a PayPal con i parametri necessari
+    window.location.href = staticLink;
+});
+
+// Gestione click su PayPal
+document.getElementById('free-paypal-button').addEventListener('click', function() {
     // Reindirizza a PayPal con i parametri necessari
     window.location.href = staticLink;
 });
@@ -775,3 +785,25 @@ if (isIOS) {
     const welcomeContent = document.querySelector('.welcome-content');
     welcomeContent.style.padding = "14rem 20px";
 }
+
+
+
+// Gestore per il link di pagamento diretto nella welcome page
+document.getElementById('direct-payment-link')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    // // Nascondi la welcome page
+    // document.getElementById('welcomePage').classList.add('hidden');
+    // setTimeout(() => {
+    //     document.getElementById('welcomePage').style.display = 'none';
+    // }, 500);
+    
+
+    // Apri direttamente il modal di pagamento
+    setTimeout(() => {
+        // Crea un array vuoto per simulare nessuna esperienza selezionata
+        selectedActivities.length = 0;
+        // Mostra il modal
+        document.getElementById('free-payment-modal').style.display = 'block';
+    }, 600);
+});

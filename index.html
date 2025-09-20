@@ -19,9 +19,79 @@
   </script>
 </head>
 
+<!-- Popup contributo libero -->
+ <div id="free-payment-modal" class="modal">
+    <div class="modal-content">
+        <span id="close-free-modal-btn" class="close-modal">&times;</span>
+        <div class="modal-header">
+            <i class="fas fa-gift"></i>
+            <h3>Grazie per il tuo regalo!</h3>
+        </div>
+                
+        <div class="modal-body">
+            
+            <!-- Pagamento libero -->
+            <div>
+                <div class="payment-options">
+                    <h4>Scegli il metodo di pagamento</h4>
+                    <div class="payment-methods">
+                        <button class="payment-method active" data-method="free-bank">
+                            <i class="fas fa-university"></i> Bonifico Bancario
+                        </button>
+                        <button class="payment-method" data-method="free-paypal">
+                            <i class="fab fa-paypal"></i> PayPal
+                        </button>
+                    </div>
+
+                    <div class="payment-details" id="free-bank-details">
+                        <div class="bank-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Intestatario:</span>
+                                <span class="detail-value">Alessandro Di Prima</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">IBAN:</span>
+                                <span class="detail-value" id="iban">IT53 I036 6901 6007 9645 0573 673</span>
+                                <button class="copy-btn" onclick="copyToClipboard('iban')">
+                                    <i class="far fa-copy"></i> Copia
+                                </button>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Causale:</span>
+                                <div class="causale-input">
+                                    <input type="text" value="Regalo nozze Ale e Sara: Contributo libero" class="causale-field">
+                                    <button class="copy-btn" onclick="copyToClipboard('causale-input')">
+                                        <i class="far fa-copy"></i> Copia
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-details" id="free-paypal-details" style="display:none;">
+                        <div class="paypal-details">
+                            <p>Verrai reindirizzato a PayPal per completare il pagamento. Ricordati di:</p>
+                            <ul>
+                              <li>Specificare "Amici e Parenti" nel motivo della transazione</li>
+                            </ul>
+                            <button id="free-paypal-button" class="paypal-btn">
+                                <i class="fab fa-paypal"></i> Paga con PayPal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- <button id="btn-back-to-message" class="copy-btn" style="margin-top: 20px;">
+                    <i class="fas fa-arrow-left"></i> Torna al messaggio
+                </button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="payment-modal" class="modal">
     <div class="modal-content">
-        <span class="close-modal">&times;</span>
+        <span id="close-modal-btn" class="close-modal">&times;</span>
         <div class="modal-header">
             <i class="fas fa-gift"></i>
             <h3>Grazie per il tuo regalo!</h3>
@@ -80,7 +150,7 @@
                             </div>
                             <div class="detail-row">
                                 <span class="detail-label">IBAN:</span>
-                                <span class="detail-value" id="iban">IT53I0366901600796450573673</span>
+                                <span class="detail-value" id="iban">IT53 I036 6901 6007 9645 0573 673</span>
                                 <button class="copy-btn" onclick="copyToClipboard('iban')">
                                     <i class="far fa-copy"></i> Copia
                                 </button>
@@ -134,8 +204,9 @@
       <div class="welcome-section">
         <h3 class="section-title">⛩️ Come Funziona ⛩️</h3>
         <p class="section-text">
-          Abbiamo creato questa lista esperienze invece dei classici regali: potete regalarci 
+          Abbiamo creato questa lista di esperienze invece dei classici regali: potete regalarci 
           <strong>avventure indimenticabili</strong> per il nostro viaggio di nozze in Giappone!
+          Se invece preferisci fare una donazione libera <a href="#" id="direct-payment-link" style="color: var(--highlightActiveColor); text-decoration: underline; cursor: pointer;">clicca qui</a>🎁.
         </p>
         
         <ol class="instructions-list">
@@ -144,11 +215,13 @@
             ⭐<em>Clicca sulle card per vedere la posizione sulla mappa e i dettagli!</em>
           </li>
           <li><strong>Scegli</strong> quelle che vorresti regalarci (puoi selezionarne più di una) cliccando sul prezzo.</li>
+            <!-- 🍎<em>Se stai usando un dispositivo Apple dovrai prima cliccare sull'elemento per seleziona</em> -->
           <li>
             <strong>Quando hai fatto</strong> controlla il carrelo in alto a destra e poi clicca su Checkout
           </li>
           <li>
-            <strong>Contribuisci</strong> tramite PayPal, carta di credito o bonifico
+            <strong>Lasciaci un messaggio</strong> e poi procedi al pagamento tramite bonifico o PayPal.<br>
+            ⚠️<em>Se scegli di pagare con PayPal ricordati di selezionare l'opzione "Amici e familiari"</em>
           </li>
         </ol>
       </div>
