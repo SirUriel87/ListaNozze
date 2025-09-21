@@ -15,17 +15,7 @@
 
 @font-face {
     font-family: 'Takashimura-Regular';
-    src: url('fonts/Takashimura-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-
-
-@font-face {
-    font-family: 'Japan wave';
-    src: url('fonts/Japan wave.ttf') format('truetype');
+    src: url('fonts/Roller Coaster.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -85,14 +75,14 @@ body {
 
 .welcome-title {
   color: var(--titlesColor);
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
+  font-size: 6rem;
+  margin-bottom: 1rem;
   font-family: 'Takashimura-Regular';
 }
 
 .welcome-subtitle {
   color: var(--titlesColor);
-  font-size: 2rem;
+  font-size: 3rem;
   margin-top: 0;
   font-family: 'Takashimura-Regular';
 }
@@ -115,7 +105,7 @@ body {
   color: var(--titlesColor);
   margin-top: 0;
   font-family: 'Takashimura-Regular';
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .section-text {
@@ -1121,6 +1111,15 @@ body {
 
 
 @media (max-width: 768px) {
+
+    .welcome-title {
+        font-size: 3rem;
+    }
+
+    .welcome-subtitle {
+        font-size: 2rem;
+    }
+
     .modal {
         padding: 0 10px; 
     }
@@ -1344,12 +1343,17 @@ body {
 
 
 
-.welcome-title, .welcome-subtitle, .instructions-list, .section-text {
+.instructions-list, .section-text {
     text-shadow: 
         1px 1px 3px rgba(255, 255, 255, 0.3), /* Ombra primaria */
         0 0 5px rgba(255,255,255,0.9); /* Alone bianco per contrasto */
 }
 
+.welcome-title, .welcome-subtitle {
+    text-shadow: 
+        2px 2px 4px rgb(255, 255, 255), /* Ombra primaria */
+        0 0 5px rgba(255,255,255,0.9); /* Alone bianco per contrasto */
+}
 
 /* Stili per le frecce del carrello */
 .toggle-cart-btn .left-arrow {
