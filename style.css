@@ -1354,7 +1354,7 @@ html, body {
     overscroll-behavior: none;
     -webkit-overflow-scrolling: auto;
     height: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 
