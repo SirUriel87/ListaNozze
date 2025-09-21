@@ -42,7 +42,7 @@ const experiences = [
         amount: 200,
         image: "img/shinkansen-tokyo-hiroshima.jpg",
         city: "Hiroshima",
-        position: [35.12499575494723, 138.48630358663596]
+        position: [34.54709749199467, 133.2336832226669]
     },
      {
         title: "Okonomiyaki a Osaka",
@@ -77,6 +77,14 @@ const experiences = [
         position: [34.71342851918433, 134.14739062554887]
     },
      {
+        title: "Treno Kyoto-Tokyo",
+        description: 'Torniamo a Tokyo per gli ultimi acquisti e le ultime tappe',
+        amount: 100,
+        image: "img/shinkansen-kyoto-tokyo.jpg",
+        city: "Himeji",
+        position: [35.225240776078884, 138.65543614951616]
+    },
+     {
         title: "Castello di Himeji",
         description: 'Visita al castello di Himeji, patrimonio dell\'UNESCO',
         amount: 10,
@@ -93,7 +101,7 @@ const experiences = [
         position: [34.9608896547387, 134.75083395372909]
     },
      {
-        title: "Soggiorno a Nipponia",
+        title: "Hotel Nipponia Fukusaki",
         description: 'Vitto, alloggio e terme in un albergo tradizionale nella piccola cittadina di Fukusaki. Con tanto di vasca termale compresa nella stanza <3',
         amount: 300,
         image: "img/nipponia.jpg",
@@ -156,6 +164,79 @@ const experiences = [
         city: "Osaka",
         position: [34.86578397580111, 135.4909689797329]
     },
+    {
+        title: "Hotel Remm Akihabara",
+        description: 'Soggiorno di 3 notti nell\'hotel Remm, proprio nel cuore del quartiere tecnologico di Tokyo',
+        amount: 300,
+        image: "img/hotel-remm.jpg",
+        city: "Tokyo",
+        position: [35.69789737975362, 139.7736671392885]
+    },
+    {
+        title: "Hotel Quintessa Osaka",
+        description: 'Soggiorno di 3 notti in questo hotel con una vasta collezione di libri e manga...bisogna vede\' se ci si capisce qualcosa',
+        amount: 300,
+        image: "img/hotel-quintessa.jpg",
+        city: "Osaka",
+        position: [34.67551572016822, 135.50431737366543]
+    },
+    {
+        title: "Hotel Grandvrio Himeji",
+        description: 'Una notte al Grandvrio Hotel, vicino al castello di Himeji e provvisto di terme',
+        amount: 100,
+        image: "img/hotel-grandvio.jpg",
+        city: "Himeji",
+        position: [34.82087703569641, 134.6893220545995]
+    },
+    {
+        title: "Hotel En Hiroshima",
+        description: 'Soggiorno di 2 notti all\'albergo EN di Hiroshima, con una bellissima vista sul fiume Kyobashi',
+        amount: 200,
+        image: "img/hotel-en.jpg",
+        city: "Hiroshima",
+        position: [34.391836114385804, 132.46858212574762]
+    },
+    {
+        title: "Hotel Associa Shizuoka",
+        description: 'Una notte all\'albergo Associa di Shizuoka, città famosa per il tè matcha',
+        amount: 100,
+        image: "img/hotel-associa.jpg",
+        city: "Shizuoka",
+        position: [34.973087861589164, 138.3897555374089]
+    },
+    {
+        title: "Volo di andata per Sara",
+        description: 'Biglietto di sola andata per Sara. Tranquillə che se nessunə regala il biglietto ad Ale, lei va da sola 😜',
+        amount: 500,
+        image: "img/volo-andata.jpg",
+        city: "Tokyo",
+        position: [35.54862622350469, 139.7782303018891]
+    },
+    {
+        title: "Volo di andata per Ale",
+        description: 'Biglietto di sola andata per Ale. Se nessunə regala il biglietto a Sara vorrà dire che avrà più posto per il PC',
+        amount: 500,
+        image: "img/volo-andata.jpg",
+        city: "Tokyo",
+        position: [35.54862622350469, 139.7782303018891]
+    },
+    {
+        title: "Volo di ritorno per Sara",
+        description: 'Biglietto di ritorno per Sara... il problema sarà convincerla a ritornare',
+        amount: 500,
+        image: "img/volo-ritorno.jpg",
+        city: "Tokyo",
+        position: [35.54862622350469, 139.7782303018891]
+    },
+    {
+        title: "Volo di ritorno per Ale",
+        description: 'Biglietto di ritorno per Ale... per farlo partire però Sara dovrà riuscire a schiodarlo da Akihabara',
+        amount: 500,
+        image: "img/volo-ritorno.jpg",
+        city: "Tokyo",
+        position: [35.54862622350469, 139.7782303018891]
+    },
+    
     
 ];
 

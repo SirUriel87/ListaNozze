@@ -12,6 +12,14 @@
     --badgeColor:#ff4444;
 }
 
+@font-face {
+    font-family: 'Avenue de Madison';
+    src: url('fonts/Avenue de Madison.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 body {
     overflow-x: hidden;
     overflow-y: auto; /* Permette scroll solo se necessario */
@@ -42,6 +50,7 @@ body {
     background-position: center;  
     background-repeat: no-repeat; 
     background-attachment: fixed;   */
+    background-position: top left;
 
     overflow-y: auto; /* Abilita lo scroll verticale */
     overscroll-behavior: contain; /* Evita l'effetto rimbalzo */
@@ -65,14 +74,16 @@ body {
 
 .welcome-title {
   color: var(--twohunColor);
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 0.5rem;
+  font-family: 'Avenue de Madison';
 }
 
 .welcome-subtitle {
   color: var(--twohunColor);
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-top: 0;
+  font-family: 'Avenue de Madison';
 }
 
 .welcome-quote {
