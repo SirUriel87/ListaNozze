@@ -55,7 +55,7 @@ body {
     /* immagine sfondo */
     background: 
         linear-gradient(rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.8)),
-        url('img/welcome.jpg') center/cover no-repeat;
+        url('img/welcome.jpg') center;
     /* background-image: url('img/welcome.jpg'); */
     /* background-size: cover;       
     background-position: center;  
