@@ -1,6 +1,6 @@
-// const staticLink = "https://paypal.me/diprimaale?country.x=IT&locale.x=it_IT";
+const staticLink = "https://paypal.me/diprimaale?country.x=IT&locale.x=it_IT";
 // const staticLink = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=diprima.ale@gmail.com&currency_code=EUR&amount=%amount%&item_name=%title%";
-const staticLink = "https://www.paypal.com/myaccount/transfer/homepage/preview";
+//const staticLink = "https://www.paypal.com/myaccount/transfer/homepage/preview";
 const isMobile = window.innerWidth <= 768;
 const offsetCoefficient = (isMobile ? 80 : 130);
 var messageSent = false;
